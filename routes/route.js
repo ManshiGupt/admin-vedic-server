@@ -1,6 +1,7 @@
 import express from 'express'
 
 import { createUser, getUserByContactNo, getAllUsers, updateUser, deleteUser} from '../controller/user-profile-api.js';
+import { createFaqHelp, getAllFaq, deleteFaq, updateFaq } from '../controller/faq-help-api.js';
 
 
 //configer express router
@@ -24,6 +25,13 @@ router.put('/update-user/:id', updateUser);
 //delete user
 router.delete('/delete-user/:id', deleteUser)
 
+
+//faq section
+
+router.post('/faq-help', createFaqHelp);
+router.get('/all-faq-help', getAllFaq);
+router.delete('/delete-faq-help/:id', deleteFaq);
+router.put('/update-faq-help/:id', updateFaq )
 
 
 export default router
