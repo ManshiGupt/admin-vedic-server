@@ -1,4 +1,5 @@
 import AddFaqHelpSchema from "../schema/faq-help-schema.js";
+import ExcelJs from 'exceljs'
 
 //creating new user (user registration)
 export const createFaqHelp = async (req, res) => {
@@ -149,7 +150,7 @@ export const getAllFaq = async (req, res) => {
 
         const result = await AddFaqHelpSchema.paginate(query, options);
 
-        res.status(200).json({ data: result.docs, totalPages: totalPages });
+        res.status(200).json({ data: result.docs, totalPages: totalDocumentCount });
 
 
     } catch (error) {
@@ -157,6 +158,56 @@ export const getAllFaq = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+export const downloadFaqExcelFile = async (req, res) => {
+    try {
+
+        //extracting startDate and endDate from api query
+        const { startDate, endDate } = req.query;
+
+        // Convert startDate and endDate to ISODate format
+        const startDateTime = new Date(startDate);
+        startDateTime.setHours(0, 0, 0, 0); // Set time to midnight
+
+        const endDateTime = new Date(endDate);
+        endDateTime.setHours(23, 59, 59, 999); // Set time to end of day
+
+        // Fetch FAQ data within the specified date range from the database
+        const faqData = await AddFaqHelpSchema.find({
+
+            createdAt: { $gte: startDateTime, $lte: endDateTime }
+
+        }).lean();
+
+        // Create new Excel workbook and worksheet
+        const newWorkbook = new ExcelJs.Workbook();
+        const newWorkSheet = newWorkbook.addWorksheet('Faq');
+
+        // Add headers to the worksheet
+        newWorkSheet.addRow(['CreatedAt', 'Title', 'Descriptions']);
+
+        // Add data to the worksheet
+        faqData.forEach(faq => {
+            newWorkSheet.addRow([faq.createdAt, faq.title, faq.descriptions]);
+        });
+
+        // Generate Excel file buffer
+        const excelBuffer = await newWorkbook.xlsx.writeBuffer();
+
+        // Set response headers for downloading the file
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename="faqs.xlsx"');
+
+        // Send the Excel file buffer as the response
+        res.send(excelBuffer);
+
+    } catch (error) {
+
+        console.error('Error generating Excel file:', error);
+        res.status(500).send('Error generating Excel file');
+    }
+};
+
 
 
 
