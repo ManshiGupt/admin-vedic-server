@@ -31,11 +31,11 @@ export const userRegistration = async (req, res) => {
         //await newUser.save();
 
         // Send email to the user
-        await sendEmail({
-            to: emailAddress,
-            subject: 'Vedic Pandit: Registration Successful',
-            message: `Hello ${name},\n\nThank you for registering with us!`,
-        });
+        // await sendEmail({
+        //     to: emailAddress,
+        //     subject: 'Vedic Pandit: Registration Successful',
+        //     message: `Hello ${name},\n\nThank you for registering with us!`,
+        // });
 
         // Generate JWT token with permissions included in payload
         const payload = {
