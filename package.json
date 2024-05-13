@@ -12,12 +12,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.572.0",
+    "@aws-sdk/credential-provider-env": "^3.568.0",
+    "aws-sdk": "^2.1616.0",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "exceljs": "^4.4.0",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.3",
     "mongoose-paginate-v2": "^1.8.0",
+    "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0"
   }
 }

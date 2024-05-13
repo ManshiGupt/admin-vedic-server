@@ -4,6 +4,7 @@ import cors from 'cors'
 import Connection from "./database/mongo-db.js";
 import Routes from "./routes/route.js";
 
+
 //initiating express app
 const app = express()
 
