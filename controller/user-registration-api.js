@@ -8,11 +8,11 @@ export const userRegistration = async (req, res) => {
         const { name, contactNo, emailAddress, password } = req.body;
 
         // Check if the user already exists
-        // let existingUser = await AddUserRegistrationSchema.findOne({ emailAddress });
+        let existingUser = await AddUserRegistrationSchema.findOne({ emailAddress });
 
-        // if (existingUser) {
-        //     return res.status(400).json({ message: "User already exists" });
-        // }
+        if (existingUser) {
+            return res.status(400).json({ message: "User already exists" });
+        }
 
         // Hash the password
         const salt = await bcrypt.genSalt(10);
@@ -28,7 +28,7 @@ export const userRegistration = async (req, res) => {
         });
 
         // Save the user to the database
-        //await newUser.save();
+        await newUser.save();
 
         // Send email to the user
         await sendEmail({
