@@ -69,6 +69,7 @@ export const getAllUsers = async (req, res) => {
 
         // Return the list of all users
         res.status(200).json(allUsers);
+        
     } catch (error) {
         // Respond with internal server error if something goes wrong
         console.error(error);

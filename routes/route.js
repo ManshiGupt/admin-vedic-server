@@ -5,7 +5,7 @@ import { validateTokenForApi, validateTokenForRoute } from '../middleware/token-
 import { createUser, getUserByContactNo, getAllUsers, updateUser, deleteUser} from '../controller/user-profile-api.js';
 import { createFaqHelp, getAllFaq, deleteFaq, updateFaq, downloadFaqExcelFile} from '../controller/faq-help-api.js';
 import {userRegistration, userLogin} from '../controller/user-registration-api.js';
-
+import { sendOTP, verifyOTP, resendOTP } from '../controller/send-otp-api.js';
 
 
 //configer express router
@@ -44,6 +44,10 @@ router.get('/download-faq-help-excle-file', downloadFaqExcelFile )
 //user registration
 router.post('/registration', userRegistration )
 router.post('/login', userLogin )
+
+router.post('/send-otp', sendOTP )
+router.post('/verify-otp', verifyOTP )
+router.post('/resend-otp', resendOTP )
 
 
 export default router

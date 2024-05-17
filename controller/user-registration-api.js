@@ -5,6 +5,7 @@ import sendEmail from '../other/send-email.js';
 
 export const userRegistration = async (req, res) => {
     try {
+        
         const { name, contactNo, emailAddress, password } = req.body;
 
         // Check if the user already exists
