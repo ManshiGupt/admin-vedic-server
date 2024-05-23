@@ -5,41 +5,33 @@ import AddUserProfileSchema from '../schema/user-profile-schema.js';
 //creating new user (user registration)
 //test api url :http://localhost:8000/create-user/ (pass body data in json format)
 export const createUser = async (req, res) => {
-
     const data = req.body;
-
-    console.log('data-log',data)
+    const contactNo = data.contactNo;
 
     try {
+        // Check if the user already exists and update if it does, otherwise create a new one
+        const user = await AddUserProfileSchema.findOneAndUpdate({ contactNo }, data , { new: true, upsert: true, setDefaultsOnInsert: true });
 
-        // Create a new document using the data from the request body
-        const newUser = new AddUserProfileSchema(data);
-
-        // Save the new document to the database
-        await newUser.save();
-
-        // Return a success response with the newly created user
-        res.status(201).json(newUser);
+        // Return the created or updated user
+        res.status(user.isNew ? 201 : 200).json(user);
 
     } catch (error) {
-
+        
         // Check if the error is a validation error
         if (error.name === 'ValidationError') {
-
             // Handle validation errors
-            res.status(400).json({ message: error.message });
-
+            return res.status(400).json({ message: error.message });
         } else if (error.code === 11000) {
             // Handle duplicate key errors (e.g., unique constraint violation)
-            res.status(409).json({ message: 'Duplicate key error' });
-            
+            return res.status(409).json({ message: 'Duplicate key error' });
         } else {
             // Handle other errors
             console.error(error);
-            res.status(500).json({ message: 'Internal server error' });
+            return res.status(500).json({ message: 'Internal server error' });
         }
     }
 };
+
 
 //get user data by contactNo
 //test api url : http://localhost:8000/user?contactNo=8700598481
@@ -47,7 +39,7 @@ export const getUserByContactNo = async (req, res) => {
 
     try {
         const { contactNo } = req.query;
-        
+
         // Find user by contactNo
         const userData = await AddUserProfileSchema.findOne({ contactNo });
 
@@ -69,7 +61,7 @@ export const getAllUsers = async (req, res) => {
 
         // Return the list of all users
         res.status(200).json(allUsers);
-        
+
     } catch (error) {
         // Respond with internal server error if something goes wrong
         console.error(error);

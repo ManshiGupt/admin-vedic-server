@@ -1,21 +1,22 @@
 import mongoose from 'mongoose';
 
 const UserProfileSchema = new mongoose.Schema(
-
     {
-        name: { type: String, required: true },
-        contactNo: { type: String, required: true},
-        profilePic: { type: String },
-        email: { type: String, required: true, unique: true }
+        name: { type: String, default: '' },
+        contactNo: { type: String, required: true, default: '', unique: true,  },
+        profilePic: { type: String, default: '' },
+        email: { type: String, default: '' },
+        houseNo: { type: String, default: '' },
+        landMark: { type: String, default: '' },
+        fullAddress: { type: String, default: '' },
+        areaPinCode: { type: String, default: '' },
+        state: { type: String, default: '' },
     },
-
     {
         timestamps: true
     }
-
 );
 
 const AddUserProfileSchema = mongoose.model('user-profile', UserProfileSchema);
 
 export default AddUserProfileSchema;
-

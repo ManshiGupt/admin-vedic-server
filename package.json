@@ -12,9 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.577.0",
     "@aws-sdk/client-ses": "^3.572.0",
     "@aws-sdk/credential-provider-env": "^3.568.0",
-    "aws-sdk": "^2.1616.0",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.3",
     "mongoose-paginate-v2": "^1.8.0",
+    "multer": "^1.4.5-lts.1",
     "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0"
   }

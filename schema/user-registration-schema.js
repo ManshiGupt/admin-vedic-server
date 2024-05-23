@@ -2,11 +2,13 @@ import mongoose from "mongoose";
 
 // Define user registration schema with default values for permissions
 const userRegistrationSchema = new mongoose.Schema({
+
     name: String,
     contactNo: String,
     emailAddress: String,
     password: String,
     role: {type: String, default: 'user'},
+    
     permissions: {
         faq: {
             create: {

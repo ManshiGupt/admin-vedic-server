@@ -6,6 +6,7 @@ import { createUser, getUserByContactNo, getAllUsers, updateUser, deleteUser} fr
 import { createFaqHelp, getAllFaq, deleteFaq, updateFaq, downloadFaqExcelFile} from '../controller/faq-help-api.js';
 import {userRegistration, userLogin} from '../controller/user-registration-api.js';
 import { sendOTP, verifyOTP, resendOTP } from '../controller/send-otp-api.js';
+import { uploadFile } from '../controller/file-upload.api.js';
 
 
 //configer express router
@@ -48,6 +49,10 @@ router.post('/login', userLogin )
 router.post('/send-otp', sendOTP )
 router.post('/verify-otp', verifyOTP )
 router.post('/resend-otp', resendOTP )
+
+
+//upload file
+router.post('/upload-image', uploadFile)
 
 
 export default router

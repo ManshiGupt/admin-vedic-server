@@ -9,6 +9,7 @@ const sesClient = new SESClient({
 
 // Function to send email
 const sendEmail = async ({ to, subject, message }) => {
+    
     const params = {
         Destination: {
             ToAddresses: [to]
