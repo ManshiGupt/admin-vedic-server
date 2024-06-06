@@ -32,3 +32,26 @@ export const addToCart = async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error });
     }
 };
+
+export const getCartData = async (req, res) => {
+    
+    try {
+        // Fetch all items from the cart collection
+        const cartItems = await AddProductCartSchema.find();
+
+        // Count the total number of items in the cart collection
+        const totalCount = await AddProductCartSchema.countDocuments();
+
+        // Return the cart items and total count
+        res.status(200).json({
+            data: cartItems,
+            cart_item_no: totalCount
+        });
+    } catch (error) {
+        // Handle errors
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};
+
+
