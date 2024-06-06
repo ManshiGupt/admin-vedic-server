@@ -7,6 +7,7 @@ import { createFaqHelp, getAllFaq, deleteFaq, updateFaq, downloadFaqExcelFile} f
 import {userRegistration, userLogin} from '../controller/user-registration-api.js';
 import { sendOTP, verifyOTP, resendOTP } from '../controller/send-otp-api.js';
 import { uploadFile } from '../controller/file-upload.api.js';
+import { addToCart } from '../controller/product-cart.js';
 
 
 //configer express router
@@ -53,6 +54,9 @@ router.post('/resend-otp', resendOTP )
 
 //upload file
 router.post('/upload-image', uploadFile)
+
+//add to cart
+router.post('/add-to-cart', addToCart)
 
 
 export default router
