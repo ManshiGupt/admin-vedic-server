@@ -8,6 +8,7 @@ import {userRegistration, userLogin} from '../controller/user-registration-api.j
 import { sendOTP, verifyOTP, resendOTP } from '../controller/send-otp-api.js';
 import { uploadFile } from '../controller/file-upload.api.js';
 import { addToCart, getCartData } from '../controller/product-cart.js';
+import { addProduct, getProduct } from '../controller/add-product-api.js';
 
 
 //configer express router
@@ -58,6 +59,10 @@ router.post('/upload-image', uploadFile)
 //add to cart
 router.post('/add-to-cart', addToCart)
 router.get('/get-cart-data', getCartData);
+
+//add product
+router.post('/add-product', addProduct)
+router.get('/get-product', getProduct)
 
 
 export default router

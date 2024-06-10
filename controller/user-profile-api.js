@@ -5,6 +5,7 @@ import AddUserProfileSchema from '../schema/user-profile-schema.js';
 //creating new user (user registration)
 //test api url :http://localhost:8000/create-user/ (pass body data in json format)
 export const createUser = async (req, res) => {
+    
     const data = req.body;
     const contactNo = data.contactNo;
 
