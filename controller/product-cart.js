@@ -17,10 +17,6 @@ export const addToCart = async (req, res) => {
         // Return a success response with the newly created data and total count
         res.status(201).json({
 
-            data: {
-                id: createdData._id,
-                itemName: createdData.itemName,
-            },
             cart_item_no : totalCount
 
         });
