@@ -3,7 +3,8 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 
 const ProductCartSchema = new mongoose.Schema(
     {
-        itemName: { type: String }
+        productId: { type: String },
+        userId: {type: String}
     },
     {
         timestamps: true
