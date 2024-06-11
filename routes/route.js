@@ -58,7 +58,8 @@ router.post('/upload-image', uploadFile)
 
 //add to cart
 router.post('/add-to-cart', addToCart)
-router.get('/get-cart-data', getCartData);
+router.get('/get-cart-data/:userId', getCartData);
+// router.get('/get-cart-data/', getCartData);
 
 //add product
 router.post('/add-product', addProduct)

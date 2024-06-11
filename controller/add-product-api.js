@@ -51,13 +51,34 @@ export const getProduct = async (req, res) => {
     }
 };
 
-export const getProductById = async (req, res) => {
+export const getProductById1 = async (req, res) => {
 
     const productId = req.params.productId; // Assuming you pass product id in params
 
     try {
         // Find product by id
         const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        // Return the product
+        res.status(200).json({ product });
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};
+
+export const getProductById = async (req, res) => {
+
+    const productId = req.params.productId; // Assuming you pass product id in params
+
+    try {
+        // Find product by id
+        const product = await Product.find({productId: productId});
 
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });

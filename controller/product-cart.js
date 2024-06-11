@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import AddProductCartSchema from "../schema/add-to-cart-schema.js";
 
 export const addToCart = async (req, res) => {
@@ -17,7 +18,7 @@ export const addToCart = async (req, res) => {
         // Return a success response with the newly created data and total count
         res.status(201).json({
 
-            cart_item_no : totalCount
+            cart_item_no: totalCount
 
         });
 
@@ -29,25 +30,18 @@ export const addToCart = async (req, res) => {
     }
 };
 
+
 export const getCartData = async (req, res) => {
+
     
-    try {
-        // Fetch all items from the cart collection
-        const cartItems = await AddProductCartSchema.find();
-
-        // Count the total number of items in the cart collection
-        const totalCount = await AddProductCartSchema.countDocuments();
-
-        // Return the cart items and total count
-        res.status(200).json({
-            data: cartItems,
-            cart_item_no: totalCount
-        });
-    } catch (error) {
-        // Handle errors
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error', error });
-    }
 };
+
+
+  
+
+
+
+
+
 
 
