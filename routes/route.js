@@ -7,7 +7,7 @@ import { createFaqHelp, getAllFaq, deleteFaq, updateFaq, downloadFaqExcelFile} f
 import {userRegistration, userLogin} from '../controller/user-registration-api.js';
 import { sendOTP, verifyOTP, resendOTP } from '../controller/send-otp-api.js';
 import { uploadFile } from '../controller/file-upload.api.js';
-import { addToCart, getCartData } from '../controller/product-cart.js';
+import { addToCart, getCartData, removeCartItem, removeCartItemAll } from '../controller/product-cart.js';
 import { addProduct, getProduct, getProductById} from '../controller/add-product-api.js';
 
 
@@ -65,6 +65,8 @@ router.get('/get-cart-data/:userId', getCartData);
 router.post('/add-product', addProduct)
 router.get('/get-product', getProduct)
 router.get('/get-product-by-id/:productId', getProductById);
+router.delete('/delete-cart-item/:userId/:productId', removeCartItem);
+router.delete('/delete-all-cart-item/:userId/:productId', removeCartItemAll);
 
 
 export default router
