@@ -3,7 +3,9 @@ import AddProductCartSchema from "../schema/add-to-cart-schema.js";
 export const addToCart = async (req, res) => {
 
     try {
+
         const data = req.body;
+        // const userId = req.params.userId;
 
         // Create a new document using the data from the request body
         const newData = new AddProductCartSchema(data);
@@ -12,7 +14,7 @@ export const addToCart = async (req, res) => {
         const createdData = await newData.save();
 
         // Count the total number of items in the cart collection
-        const totalCount = await AddProductCartSchema.countDocuments();
+        const totalCount = await AddProductCartSchema.countDocuments({ userId: data.formData.userId });
 
         // Return a success response with the newly created data and total count
         res.status(201).json({
@@ -20,6 +22,8 @@ export const addToCart = async (req, res) => {
             cart_item_no: totalCount
 
         });
+
+        // console.log(data.formData.userId)
 
 
     } catch (error) {
@@ -30,6 +34,7 @@ export const addToCart = async (req, res) => {
 };
 
 export const getCartData = async (req, res) => {
+
     const userId = req.params.userId; // Assuming you pass userId in params
 
     try {
@@ -120,9 +125,10 @@ export const getCartData = async (req, res) => {
 
 export const removeCartItem = async (req, res) => {
     try {
+
         const { productId, userId } = req.params; // Extracting from params, not body
 
-        console.log(productId, userId);
+        // console.log(productId, userId);
 
         // Find and delete the cart item(s) based on productId and userId
         const deletedItem = await AddProductCartSchema.deleteOne({ productId, userId });
