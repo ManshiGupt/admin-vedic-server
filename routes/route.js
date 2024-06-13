@@ -57,7 +57,7 @@ router.post('/resend-otp', resendOTP )
 router.post('/upload-image', uploadFile)
 
 //add to cart
-router.post('/add-to-cart', addToCart)
+router.post('/add-to-cart/:userId', addToCart)
 router.get('/get-cart-data/:userId', getCartData);
 // router.get('/get-cart-data/', getCartData);
 

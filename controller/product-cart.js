@@ -5,7 +5,7 @@ export const addToCart = async (req, res) => {
     try {
 
         const data = req.body;
-        // const userId = req.params.userId;
+        const userId = req.params.userId;
 
         // Create a new document using the data from the request body
         const newData = new AddProductCartSchema(data);
@@ -14,7 +14,7 @@ export const addToCart = async (req, res) => {
         const createdData = await newData.save();
 
         // Count the total number of items in the cart collection
-        const totalCount = await AddProductCartSchema.countDocuments({ userId: data.formData.userId });
+        const totalCount = await AddProductCartSchema.countDocuments({ userId: userId });
 
         // Return a success response with the newly created data and total count
         res.status(201).json({
