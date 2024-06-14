@@ -1,44 +1,8 @@
 import AddProductCartSchema from "../schema/add-to-cart-schema.js";
 
-export const addToCart = async (req, res) => {
+export const getAllCartData = async (userId) => {
 
     try {
-
-        const data = req.body;
-        const userId = req.params.userId;
-
-        // Create a new document using the data from the request body
-        const newData = new AddProductCartSchema(data);
-
-        // Save the new document to the database
-        const createdData = await newData.save();
-
-        // Count the total number of items in the cart collection
-        const totalCount = await AddProductCartSchema.countDocuments({ userId: userId });
-
-        // Return a success response with the newly created data and total count
-        res.status(201).json({
-
-            cart_item_no: totalCount
-
-        });
-
-        // console.log(data.formData.userId)
-
-
-    } catch (error) {
-        // Handle other errors
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error', error });
-    }
-};
-
-export const getCartData = async (req, res) => {
-
-    const userId = req.params.userId; // Assuming you pass userId in params
-
-    try {
-        console.log("Received userId:", userId);
 
         // Aggregate cart items for the specific user
         const cartItems = await AddProductCartSchema.aggregate([
@@ -70,7 +34,7 @@ export const getCartData = async (req, res) => {
                     totalNewPrice: 1,
                     percentDiscount: {
 
-                        $multiply: [{ $divide: [{ $subtract: ["$totalOldPrice", "$totalNewPrice"] }, "$totalOldPrice"]},100]
+                        $multiply: [{ $divide: [{ $subtract: ["$totalOldPrice", "$totalNewPrice"] }, "$totalOldPrice"] }, 100]
                     },// percent calculation
                     productDetails: {
                         // _id: '$product._id', // here $product refers to the above group object product
@@ -105,16 +69,14 @@ export const getCartData = async (req, res) => {
 
 
         // Return the cart items and total count
-        res.status(200).json({
-
+        return {
             cartItems,
             cart_item_no: totalCount,
             grossTotalOldPrice: grossTotalOldPrice,
             grossTotalNewPrice: grossTotalNewPrice,
             percentDiscount: percentDiscount,
-            discountAmount: discountAmount,
-            
-        });
+            discountAmount: discountAmount
+        };
 
     } catch (error) {
         console.error("Error fetching cart data:", error);
@@ -122,61 +84,73 @@ export const getCartData = async (req, res) => {
     }
 };
 
+export const addToCart = async (req, res) => {
+    try {
+        const data = req.body;
+        const userId = req.params.userId;
+
+        const newData = new AddProductCartSchema(data);
+        await newData.save();
+
+        const cartData = await getAllCartData(userId);
+
+        res.status(201).json(cartData);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};
+
+export const getCartData = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const cartData = await getAllCartData(userId);
+
+        res.status(200).json(cartData);
+    } catch (error) {
+        console.error("Error fetching cart data:", error);
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};
 
 export const removeCartItem = async (req, res) => {
     try {
+        const { userId, productId } = req.params;
 
-        const { productId, userId } = req.params; // Extracting from params, not body
-
-        // console.log(productId, userId);
-
-        // Find and delete the cart item(s) based on productId and userId
-        const deletedItem = await AddProductCartSchema.deleteOne({ productId, userId });
+        const deletedItem = await AddProductCartSchema.deleteOne({ userId, productId });
 
         if (deletedItem.deletedCount === 0) {
             return res.status(404).json({ message: 'Cart item not found' });
         }
 
-        // Count the total number of items in the cart collection after deletion
-        const totalCount = await AddProductCartSchema.countDocuments({ userId });
+        const cartData = await getAllCartData(userId);
 
-        // Return a success response with the total count
-        res.status(200).json({ message: 'Cart item deleted successfully', cart_item_no: totalCount });
-
+        res.status(200).json(cartData);
     } catch (error) {
-        // Handle errors
         console.error(error);
         res.status(500).json({ message: 'Internal server error', error });
     }
 };
 
 export const removeCartItemAll = async (req, res) => {
-
     try {
+        const { userId, productId } = req.params;
 
-        const { productId, userId } = req.params; // Extracting from params, not body
-
-        console.log(productId, userId);
-
-        // Find and delete the cart item(s) based on productId and userId
-        const deletedItem = await AddProductCartSchema.deleteMany({ productId, userId });
+        const deletedItem = await AddProductCartSchema.deleteMany({ userId, productId });
 
         if (deletedItem.deletedCount === 0) {
             return res.status(404).json({ message: 'Cart item not found' });
         }
 
-        // Count the total number of items in the cart collection after deletion
-        const totalCount = await AddProductCartSchema.countDocuments({ userId });
+        const cartData = await getAllCartData(userId);
 
-        // Return a success response with the total count
-        res.status(200).json({ message: 'Cart item deleted successfully', cart_item_no: totalCount });
-
+        res.status(200).json(cartData);
     } catch (error) {
-        // Handle errors
         console.error(error);
         res.status(500).json({ message: 'Internal server error', error });
     }
 };
+
 
 
 
