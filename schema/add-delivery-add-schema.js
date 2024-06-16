@@ -10,6 +10,8 @@ const DeliveryAddSchema = new mongoose.Schema(
         contactNo: {type: String},
         userId: { type: String},
         addressType: {type: String},
+        alternateNo: {type: String},
+        emailId: {type: String},
     },
     {
         timestamps: true
