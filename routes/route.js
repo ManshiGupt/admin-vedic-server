@@ -9,6 +9,7 @@ import { sendOTP, verifyOTP, resendOTP } from '../controller/send-otp-api.js';
 import { uploadFile } from '../controller/file-upload.api.js';
 import { addToCart, getCartData, removeCartItem, removeCartItemAll, getAllCartData } from '../controller/product-cart.js';
 import { addProduct, getProduct, getProductById} from '../controller/add-product-api.js';
+import { addDeliveryAddress, getDeliveryAddress, updateDeliveryAdd, deleteDeliveryAdd } from '../controller/delivery-address-api.js';
 
 
 //configer express router
@@ -68,6 +69,11 @@ router.post('/add-product', addProduct)
 router.get('/get-product', getProduct)
 router.get('/get-product-by-id/:productId', getProductById);
 
+//add delivery address
+router.post('/add-delivery-address', addDeliveryAddress)
+router.get('/get-delivery-address/:userId', getDeliveryAddress)
+router.put('/update-delivery-address/:id', updateDeliveryAdd )
+router.delete('/delete-delivery-add/:id', deleteDeliveryAdd);
 
 
 export default router
