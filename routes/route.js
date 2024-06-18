@@ -10,7 +10,7 @@ import { uploadFile } from '../controller/file-upload.api.js';
 import { addToCart, getCartData, removeCartItem, removeCartItemAll, getAllCartData } from '../controller/product-cart.js';
 import { addProduct, getProduct, getProductById} from '../controller/add-product-api.js';
 import { addDeliveryAddress, getDeliveryAddress, updateDeliveryAdd, deleteDeliveryAdd } from '../controller/delivery-address-api.js';
-import { createRazorPayOrder } from '../controller/razorpay-api.js';
+import { createRazorPayOrder, razorPayOrderValidation } from '../controller/razorpay-api.js';
 
 
 //configer express router
@@ -78,6 +78,7 @@ router.delete('/delete-delivery-add/:id', deleteDeliveryAdd);
 
 //razorpay order
 router.post('/create-razorpay-order', createRazorPayOrder)
+router.post('/validate-razorpay-signature', razorPayOrderValidation)
 
 
 export default router
