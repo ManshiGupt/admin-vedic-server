@@ -11,6 +11,8 @@ import { addToCart, getCartData, removeCartItem, removeCartItemAll, getAllCartDa
 import { addProduct, getProduct, getProductById} from '../controller/add-product-api.js';
 import { addDeliveryAddress, getDeliveryAddress, updateDeliveryAdd, deleteDeliveryAdd } from '../controller/delivery-address-api.js';
 import { createRazorPayOrder, razorPayOrderValidation } from '../controller/razorpay-api.js';
+import { createProductOrder } from '../controller/product-order-api.js';
+import {generateAnswerGoogleAI } from '../controller/open-ai-api.js';
 
 
 //configer express router
@@ -79,6 +81,13 @@ router.delete('/delete-delivery-add/:id', deleteDeliveryAdd);
 //razorpay order
 router.post('/create-razorpay-order', createRazorPayOrder)
 router.post('/validate-razorpay-signature', razorPayOrderValidation)
+
+//create product order
+router.post('/create-product-order', createProductOrder)
+
+//generate question using open ai
+// router.post('/generate-answer', generateAnswerOpenAI)
+router.post('/generate-answer', generateAnswerGoogleAI)
 
 
 export default router
