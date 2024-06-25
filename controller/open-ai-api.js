@@ -49,7 +49,7 @@ export const generateAnswerGoogleAI = async (req, res) => {
     // Extract parameters from request body
     const { prompt } = req.body;
 
-    console.log('prompt data', prompt);
+    // console.log('prompt data', prompt);
 
     try {
         // Set the maximum response length (tokens)
@@ -63,7 +63,7 @@ export const generateAnswerGoogleAI = async (req, res) => {
         const response = result.response;
         const text = response.text();
 
-        // console.log(text);
+        console.log(text);
 
         res.json(text);
 

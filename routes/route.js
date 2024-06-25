@@ -13,6 +13,7 @@ import { addDeliveryAddress, getDeliveryAddress, updateDeliveryAdd, deleteDelive
 import { createRazorPayOrder, razorPayOrderValidation } from '../controller/razorpay-api.js';
 import { createProductOrder } from '../controller/product-order-api.js';
 import {generateAnswerGoogleAI } from '../controller/open-ai-api.js';
+import { createYouTubeVideo, getAllYoutubeVideo } from '../controller/youtube-video-api.js';
 
 
 //configer express router
@@ -88,6 +89,10 @@ router.post('/create-product-order', createProductOrder)
 //generate question using open ai
 // router.post('/generate-answer', generateAnswerOpenAI)
 router.post('/generate-answer', generateAnswerGoogleAI)
+
+//youtube video
+router.post('/create-youtube-video', createYouTubeVideo);
+router.get('/get-youtube-video', getAllYoutubeVideo);
 
 
 export default router
