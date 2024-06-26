@@ -29,7 +29,7 @@ export const createYouTubeVideo = async (req, res) => {
 export const getAllYoutubeVideo = async (req, res) => {
     try {
 
-        const { searchText, currentPage, limit, category } = req.query;
+        const { searchText, currentPage, limit, category, fileType} = req.query;
 
         const query = {};
 
@@ -46,11 +46,16 @@ export const getAllYoutubeVideo = async (req, res) => {
             query['category'] = { $in: categories.map(cat => new RegExp(cat, 'i')) };
         }
 
+        if (fileType) {
+            query['fileType'] = { $regex: fileType, $options: 'i' };
+        }
+
         // Counting documents
         const totalDocumentCount = await AddYouTubeVideoSchema.countDocuments(query);
         const totalPages = Math.ceil(totalDocumentCount / (parseInt(limit, 10) || 10));
 
         const options = {
+            
             page: currentPage > totalPages ? totalPages : currentPage,
             limit: parseInt(limit, 10) || 10,
             sort: { createdAt: -1 },
@@ -59,6 +64,7 @@ export const getAllYoutubeVideo = async (req, res) => {
         const result = await AddYouTubeVideoSchema.paginate(query, options);
 
         res.status(200).json({ data: result.docs, totalPages: totalDocumentCount });
+        
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
