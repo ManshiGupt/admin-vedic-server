@@ -45,7 +45,8 @@ router.delete('/delete-user/:id', deleteUser)
 //faq section
 
 router.post('/faq-help', createFaqHelp);
-router.get('/all-faq-help', validateTokenForApi, getAllFaq);
+// router.get('/all-faq-help', validateTokenForApi, getAllFaq);
+router.get('/all-faq-help', getAllFaq);
 router.delete('/delete-faq-help/:id', deleteFaq);
 router.put('/update-faq-help/:id', updateFaq )
 router.get('/download-faq-help-excle-file', downloadFaqExcelFile )

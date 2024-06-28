@@ -67,6 +67,7 @@ export const getProductById = async (req, res) => {
         res.status(200).json({ product });
         
     } catch (error) {
+        
         console.error('first error', error);
         res.status(500).json({ message: 'Internal server error', error });
     }

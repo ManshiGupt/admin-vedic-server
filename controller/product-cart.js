@@ -82,7 +82,6 @@ export const getAllCartData = async (userId) => {
     }
 };
 
-
 export const addToCart = async (req, res) => {
     try {
         const data = req.body;

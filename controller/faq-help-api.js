@@ -107,7 +107,7 @@ export const getAllFaq = async (req, res) => {
 
     try {
 
-        const { startDate, endDate, searchText, currentPage, limit, filterData } = req.query;
+        const { startDate, endDate, searchText, currentPage, limit } = req.query;
 
         const query = {};
 
@@ -131,9 +131,9 @@ export const getAllFaq = async (req, res) => {
             ];
         }
 
-        if (filterData && filterData.category) {
-            query['category'] = { $regex: filterData.category, $options: 'i' };
-        }
+        // if (filterData && filterData.category) {
+        //     query['category'] = { $regex: filterData.category, $options: 'i' };
+        // }
 
         //counting documents
         const totalDocumentCount = await AddFaqHelpSchema.countDocuments(query);
