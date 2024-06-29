@@ -4,7 +4,7 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 const faqSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
-    description: { type: String, required: true }
+    descriptions: { type: String, required: true }
   },
 );
 
@@ -39,12 +39,14 @@ const AddProductSchema = new mongoose.Schema(
     subtitle: { type: String, required: true },
     oldPrice: { type: String, required: true },
     newPrice: { type: String, required: true },
+    productTag: {type: String, required: true},
     discountPercent: { type: String, required: true },
     faq: { type: [faqSchema], required: true }, // Array of objects for FAQ items
     productsYouMayLike: { type: [relatedProductSchema], required: true },
     productReview: { type: [reviewSchema], required: true }, // Array of objects for reviews
     category: { type: [String], required: true },
     visibility: { type: String, required: true },
+    index: {type: Number, required: true}
   },
   {
     timestamps: true

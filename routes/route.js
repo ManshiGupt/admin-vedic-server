@@ -15,6 +15,7 @@ import { createProductOrder } from '../controller/product-order-api.js';
 import {generateAnswerGoogleAI } from '../controller/open-ai-api.js';
 import { createYouTubeVideo, getAllYoutubeVideo } from '../controller/youtube-video-api.js';
 import { createPoojaMantra, getAllPoojaMantra } from '../controller/pooja-mantra-api.js';
+import { createSamagriCategory, getAllSamagriCategory } from '../controller/samagri-category-api.js';
 
 
 //configer express router
@@ -99,6 +100,10 @@ router.get('/get-youtube-video', getAllYoutubeVideo);
 //pooja mantra
 router.post('/create-pooja-mantra', createPoojaMantra);
 router.get('/get-pooja-mantra', getAllPoojaMantra);
+
+//pooja mantra
+router.post('/create-samagri-category', createSamagriCategory);
+router.get('/get-all-samagri-category', getAllSamagriCategory);
 
 
 export default router

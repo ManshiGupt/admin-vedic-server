@@ -33,7 +33,6 @@ export const createUser = async (req, res) => {
     }
 };
 
-
 //get user data by contactNo
 //test api url : http://localhost:8000/user?contactNo=8700598481
 export const getUserByContactNo = async (req, res) => {
