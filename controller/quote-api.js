@@ -26,12 +26,12 @@ export const createQuote = async (req, res) => {
     }
 };
 
+
+
+
 export const getAllQuotes = async (req, res) => {
-
-    
     try {
-
-        const { searchText, currentPage, limit, category} = req.query;
+        const { searchText, currentPage, limit, category } = req.query;
 
         const query = {};
 
@@ -43,7 +43,6 @@ export const getAllQuotes = async (req, res) => {
         }
 
         if (category) {
-            
             const categories = Array.isArray(category) ? category : [category];
             query['category'] = { $in: categories.map(cat => new RegExp(cat, 'i')) };
         }
@@ -53,19 +52,27 @@ export const getAllQuotes = async (req, res) => {
         const totalPages = Math.ceil(totalDocumentCount / (parseInt(limit, 10) || 10));
 
         const options = {
-            
-            page: currentPage > totalPages ? totalPages : currentPage,
             limit: parseInt(limit, 10) || 10,
             // sort: { createdAt: -1 },
         };
 
+        console.log('current page', currentPage)
+        console.log('limit', (parseInt(limit, 10) || 10))
+        console.log('dcoument count', totalDocumentCount)
+        console.log('total page', totalPages)
+
+        // Check if the requested page is within the valid range
+        if (currentPage > totalPages) {
+            return res.status(200).json({ data: [], totalPages });
+        }
+
+        options.page = currentPage;
+
         const result = await AddQuoteSchema.paginate(query, options);
 
-        res.status(200).json({ data: result.docs, totalPages: totalDocumentCount });
-        
+        res.status(200).json({ data: result.docs, totalPages });
+
     } catch (error) {
-
         res.status(500).json({ message: error.message });
-
     }
-}
+};

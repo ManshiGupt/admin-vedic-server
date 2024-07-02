@@ -28,27 +28,33 @@ export const createShortVideo = async (req, res) => {
 
 export const getAllShortVideo = async (req, res) => {
 
-    const { currentPage, limit} = req.query;
+    const { currentPage, limit } = req.query;
 
     try {
 
         const query = {};
-        
+
         // Counting documents
         const totalDocumentCount = await AddShortVideoSchema.countDocuments();
+
         const totalPages = Math.ceil(totalDocumentCount / (parseInt(limit, 10) || 15));
 
         const options = {
-            
-            page: currentPage > totalPages ? totalPages : currentPage,
             limit: parseInt(limit, 10) || 15,
             // sort: { createdAt: -1 },
         };
 
+        // Check if the requested page is within the valid range
+        if (currentPage > totalPages) {
+            return res.status(200).json({ data: [], totalPages });
+        }
+
+        options.page = currentPage;
+
         const result = await AddShortVideoSchema.paginate(query, options);
 
         // Return the list of all users
-        res.status(200).json({ data: result.docs, totalPages: totalDocumentCount });
+        res.status(200).json({ data: result.docs, totalPages });
 
     } catch (error) {
         // Respond with internal server error if something goes wrong
