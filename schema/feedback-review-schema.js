@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2'
 
-const PoojaCategory = new mongoose.Schema(
+const FeedbackReview = new mongoose.Schema(
 
     {
 
@@ -13,6 +13,7 @@ const PoojaCategory = new mongoose.Schema(
         poojaId: { type: String, required: true },
         samagriId: { type: String, required: true },
         panditId: { type: String, required: true },
+        userId: {type: String, required: true},
         reviewImages: { type: [String], required: true },
 
     },
@@ -24,9 +25,9 @@ const PoojaCategory = new mongoose.Schema(
 );
 
 //plugin pagination to schema
-PoojaCategory.plugin(mongoosePaginate);
+FeedbackReview.plugin(mongoosePaginate);
 
-const AddPoojaCategory = mongoose.model('pooja-category', PoojaCategory);
+const AddFeedbackReview = mongoose.model('feedback-review', FeedbackReview);
 
-export default AddPoojaCategory;
+export default AddFeedbackReview;
 

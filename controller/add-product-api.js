@@ -57,14 +57,20 @@ export const getProduct = async (req, res) => {
 
         const options = {
 
-            page: currentPage > totalPages ? totalPages : currentPage,
             limit: parseInt(limit, 10) || 10,
-            // sort: { updatedAt: 1 },
+            sort: { updatedAt: -1 },
         };
+
+        // Check if the requested page is within the valid range
+        if (currentPage > totalPages) {
+            return res.status(200).json({ data: [], totalPages });
+        }
+
+        options.page = currentPage;
 
         const result = await Product.paginate(query, options);
 
-        res.status(200).json({ product: result.docs, totalCount: totalDocumentCount });
+        res.status(200).json({  data: result.docs, totalCount: totalDocumentCount });
 
 
     } catch (error) {

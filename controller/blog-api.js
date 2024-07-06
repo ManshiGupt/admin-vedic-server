@@ -1,7 +1,7 @@
-import AddQuoteSchema from "../schema/quote-schema.js";
+import AddBlogSchema from "../schema/blog-schema.js";
 
 
-export const createQuote = async (req, res) => {
+export const createBlog = async (req, res) => {
 
     const data = req.body;
 
@@ -10,7 +10,7 @@ export const createQuote = async (req, res) => {
     try {
 
         // Create a new document using the data from the request body
-        const newData = new AddQuoteSchema(data);
+        const newData = new AddBlogSchema(data);
 
         // Save the new document to the database
         await newData.save();
@@ -26,8 +26,11 @@ export const createQuote = async (req, res) => {
     }
 };
 
-export const getAllQuotes = async (req, res) => {
+export const getAllBlog = async (req, res) => {
+
+
     try {
+        
         const { searchText, currentPage, limit, category } = req.query;
 
         const query = {};
@@ -45,7 +48,7 @@ export const getAllQuotes = async (req, res) => {
         }
 
         // Counting documents
-        const totalDocumentCount = await AddQuoteSchema.countDocuments(query);
+        const totalDocumentCount = await AddBlogSchema.countDocuments(query);
         const totalPages = Math.ceil(totalDocumentCount / (parseInt(limit, 10) || 10));
 
         const options = {
@@ -53,10 +56,6 @@ export const getAllQuotes = async (req, res) => {
             // sort: { createdAt: -1 },
         };
 
-        // console.log('current page', currentPage)
-        // console.log('limit', (parseInt(limit, 10) || 10))
-        // console.log('dcoument count', totalDocumentCount)
-        // console.log('total page', totalPages)
 
         // Check if the requested page is within the valid range
         if (currentPage > totalPages) {
@@ -65,11 +64,14 @@ export const getAllQuotes = async (req, res) => {
 
         options.page = currentPage;
 
-        const result = await AddQuoteSchema.paginate(query, options);
+        const result = await AddBlogSchema.paginate(query, options);
 
         res.status(200).json({ data: result.docs, totalPages });
 
+
     } catch (error) {
+
         res.status(500).json({ message: error.message });
+
     }
 };

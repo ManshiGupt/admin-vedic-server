@@ -20,6 +20,9 @@ import { createPoojaCategory, getAllPoojaCategory } from '../controller/pooja-ca
 import { createHomePageBanner, getAllHomePageBanner } from '../controller/home-page-banner-api.js';
 import { createShortVideo, getAllShortVideo } from '../controller/short-video-api.js';
 import { createQuote, getAllQuotes } from '../controller/quote-api.js';
+import { createBlog, getAllBlog } from '../controller/blog-api.js';
+import { getPanchang } from '../controller/panchang-api.js';
+import { createHomeFeedback, getAllHomePageFeedback } from '../controller/home-feedback-api.js';
 
 
 //configer express router
@@ -124,6 +127,18 @@ router.get('/get-short-video', getAllShortVideo);
 //quote
 router.post('/create-quote', createQuote);
 router.get('/get-quotes', getAllQuotes);
+
+//blog
+router.post('/create-blog', createBlog);
+router.get('/get-blogs', getAllBlog);
+
+//panchang
+router.post('/get-panchang', getPanchang);
+
+//home page feedback
+router.post('/create-home-feedback', createHomeFeedback);
+router.get('/get-home-feedbacks', getAllHomePageFeedback);
+
 
 
 export default router

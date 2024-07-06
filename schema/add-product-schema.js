@@ -32,8 +32,9 @@ const relatedProductSchema = new mongoose.Schema(
 );
 
 const AddProductSchema = new mongoose.Schema(
+
   {
-    productId: {type: String, required: true},
+
     images: { type: [String], required: true },
     title: { type: String, required: true },
     subtitle: { type: String, required: true },
@@ -46,8 +47,10 @@ const AddProductSchema = new mongoose.Schema(
     productReview: { type: [reviewSchema], required: true }, // Array of objects for reviews
     category: { type: [String], required: true },
     visibility: { type: String, required: true },
-    index: {type: Number, required: true}
+    index: {type: Number, required: true},
+    refundable: {type: Boolean, required: true}
   },
+
   {
     timestamps: true
   }
