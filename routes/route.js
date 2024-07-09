@@ -25,6 +25,7 @@ import { getPanchang } from '../controller/panchang-api.js';
 import { createHomeFeedback, getAllHomePageFeedback } from '../controller/home-feedback-api.js';
 import { getOlaMap } from '../controller/ola-maps-api.js';
 import {createVedicPandit, getAllVedicPandit, getPanditById} from '../controller/vedic-pandit-api.js'
+import { createFeedbackReviews, getAllFeedbackReviews } from '../controller/feedback-reviews-api.js';
 
 
 //configer express router
@@ -148,6 +149,10 @@ router.get('/autocomplete', getOlaMap)
 router.post('/create-vedic-pandit', createVedicPandit);
 router.get('/get-vedic-pandits', getAllVedicPandit);
 router.get('/get-pandit-by-id/:panditId', getPanditById);
+
+//feedback review
+router.post('/create-feedback-review', createFeedbackReviews);
+router.get('/get-feedback-review', getAllFeedbackReviews);
 
 
 

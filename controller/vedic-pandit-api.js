@@ -1,4 +1,5 @@
 import AddPanditSchema from "../schema/pandit-schema.js";
+import AddFeedbackReview from "../schema/feedback-review-schema.js";
 
 export const createVedicPandit = async (req, res) => {
 
@@ -28,8 +29,8 @@ export const createVedicPandit = async (req, res) => {
 export const getAllVedicPandit = async (req, res) => {
 
     try {
-        
-        const { searchText, category, currentPage = 1 , limit = 10 } = req.query; // Default currentPage to 1 and limit to 10 if not provided
+
+        const { searchText, category, currentPage = 1, limit = 10 } = req.query; // Default currentPage to 1 and limit to 10 if not provided
 
         const query = {}; // You can add conditions here if needed
 
@@ -41,7 +42,6 @@ export const getAllVedicPandit = async (req, res) => {
         }
 
         if (category) {
-
             const categories = Array.isArray(category) ? category : [category];
             query['poojaNames'] = { $in: categories.map(cat => new RegExp(cat, 'i')) };
         }
@@ -63,34 +63,51 @@ export const getAllVedicPandit = async (req, res) => {
 
         const result = await AddPanditSchema.paginate(query, options); // Perform pagination query
 
-        res.status(200).json({ data: result.docs, totalPages }); // Return paginated data and totalPages
+        // Calculate average star rating for each pandit
+        const panditsWithAvgStars = await Promise.all(result.docs.map(async (pandit) => {
+
+            // console.log(pandit._id)
+
+            const feedbackReviews = await AddFeedbackReview.find({ panditId: pandit._id });
+
+            const totalStars = feedbackReviews.reduce((total, review) => total + review.stars, 0);
+            const avgStars = feedbackReviews.length ? (totalStars / feedbackReviews.length).toFixed(1) : 0;
+
+            return { ...pandit.toObject(), avgStars };
+
+        }));
+
+        res.status(200).json({ data: panditsWithAvgStars, totalPages }); // Return paginated data with avgStars and totalPages
 
     } catch (error) {
-
         res.status(500).json({ message: error.message }); // Handle any unexpected errors
     }
 };
 
+
 export const getPanditById = async (req, res) => {
 
-    const panditId = req.params.panditId; 
-
-    // console.log(panditId)
-
+    const panditId = req.params.panditId;
 
     try {
-        // Find product by id
+        // Find pandit by id
         const panditItem = await AddPanditSchema.findById(panditId);
 
         if (!panditItem) {
             return res.status(404).json({ message: 'Pandit not found' });
         }
 
-        // Return the product
-        res.status(200).json({ panditItem });
+        // Fetch feedback reviews associated with the pandit
+        const feedbackReviews = await AddFeedbackReview.find({ panditId });
+
+        // Calculate average star rating
+        const totalStars = feedbackReviews.reduce((total, review) => total + review.stars, 0);
+        const avgStars = feedbackReviews.length ? (totalStars / feedbackReviews.length).toFixed(1) : 0;
+
+        // Return the pandit and associated feedback reviews with average star rating
+        res.status(200).json({ panditItem, feedbackReviews, avgStars });
 
     } catch (error) {
-
         console.error('first error', error);
         res.status(500).json({ message: 'Internal server error', error });
     }
