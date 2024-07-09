@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const getPanchang = async (req, res) => {
+
     const { date, month, year } = req.body;
 
     try {
@@ -26,7 +27,7 @@ export const getPanchang = async (req, res) => {
         };
 
         // Make the HTTP POST request to send the OTP
-        const response = await axios.post('https://json.freeastrologyapi.com/tithi-durations', requestData, {
+        const response = await axios.post('https://json.freeastrologyapi.com/choghadiya-timings', requestData, {
             headers: {
                 'x-api-key': process.env.PANCHANG_API,
                 'Content-Type': 'application/json'

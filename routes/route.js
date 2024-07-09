@@ -23,6 +23,8 @@ import { createQuote, getAllQuotes } from '../controller/quote-api.js';
 import { createBlog, getAllBlog } from '../controller/blog-api.js';
 import { getPanchang } from '../controller/panchang-api.js';
 import { createHomeFeedback, getAllHomePageFeedback } from '../controller/home-feedback-api.js';
+import { getOlaMap } from '../controller/ola-maps-api.js';
+import {createVedicPandit, getAllVedicPandit, getPanditById} from '../controller/vedic-pandit-api.js'
 
 
 //configer express router
@@ -138,6 +140,15 @@ router.post('/get-panchang', getPanchang);
 //home page feedback
 router.post('/create-home-feedback', createHomeFeedback);
 router.get('/get-home-feedbacks', getAllHomePageFeedback);
+
+//ola maps
+router.get('/autocomplete', getOlaMap)
+
+//vedic pandit
+router.post('/create-vedic-pandit', createVedicPandit);
+router.get('/get-vedic-pandits', getAllVedicPandit);
+router.get('/get-pandit-by-id/:panditId', getPanditById);
+
 
 
 

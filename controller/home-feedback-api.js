@@ -26,7 +26,9 @@ export const createHomeFeedback = async (req, res) => {
 };
 
 export const getAllHomePageFeedback = async (req, res) => {
+
     try {
+        
         const { currentPage = 1, limit = 10 } = req.query; // Default currentPage to 1 and limit to 10 if not provided
 
         const query = {}; // You can add conditions here if needed

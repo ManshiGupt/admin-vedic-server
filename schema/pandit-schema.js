@@ -10,15 +10,17 @@ const faqSchema = new mongoose.Schema(
 );
 
 const videoUrl = new mongoose.Schema(
+
     {
         title: { type: String, required: true },
         thumbnail: { type: String, required: true },
         videoUrl: { type: String, required: true },
         index: { type: Number, required: true }
     },
+
 );
 
-const poojaBlog = new mongoose.Schema(
+const panditBlog = new mongoose.Schema(
 
     {
         title: { type: String, required: true },
@@ -30,27 +32,27 @@ const poojaBlog = new mongoose.Schema(
 );
 
 
-const PoojaSchema = new mongoose.Schema(
+const PanditSchema = new mongoose.Schema(
 
     {
-
-        images: { type: [String], required: true },
-        title: { type: String, required: true },
-        subtitle: { type: String, required: true },
-        date: {type: String, required: true},
+        name: { type: String, required: true },
+        profileImage: { type: String, required: true },
         oldPrice: { type: String, required: true },
         newPrice: { type: String, required: true },
-        poojaTag: { type: String, required: true },
-        poojaDuration: { type: String, required: true },
-        tithi: { type: String, required: true },
-        aboutPooja: { type: String, required: true },
-        category: { type: [String], required: true },
-        visibility: { type: String, required: true },
+        poojaNames: { type: [String], required: true },
+        experience: { type: String, required: true },
+        language: { type: [String], required: true },
+        education: { type: [String], required: true },
+        visibility: { type: Boolean, required: true },
         index: { type: Number, required: true },
+        verified: { type: Boolean, required: true },
+        panditTag: { type: String, required: true },
+        location: { type: String, required: true },
+        about: { type: String, required: true },
 
         faq: { type: [faqSchema], required: true },
         videoUrl: { type: [videoUrl], required: true },
-        poojaBlog: { type: [poojaBlog], required: true },
+        panditBlog: { type: [panditBlog], required: true },
 
 
     },
@@ -60,8 +62,8 @@ const PoojaSchema = new mongoose.Schema(
 );
 
 // Plugin pagination to schema
-PoojaSchema.plugin(mongoosePaginate);
+PanditSchema.plugin(mongoosePaginate);
 
-const AddPoojaSchema = mongoose.model('pooja', PoojaSchema);
+const AddPanditSchema = mongoose.model('vedic-pandit', PanditSchema);
 
-export default AddPoojaSchema;
+export default AddPanditSchema;
