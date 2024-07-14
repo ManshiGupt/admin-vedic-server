@@ -60,10 +60,11 @@ export const generateAnswerGoogleAI = async (req, res) => {
             // Optional: Fine-tune for brevity if needed
             // stop: [".", "?", "!"] // Example stop sequences
         });
+
         const response = result.response;
         const text = response.text();
 
-        console.log(text);
+        // console.log(text);
 
         res.json(text);
 

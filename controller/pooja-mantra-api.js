@@ -53,10 +53,16 @@ export const getAllPoojaMantra = async (req, res) => {
         const totalPages = Math.ceil(totalDocumentCount / (parseInt(limit, 10) || 10));
 
         const options = {
-            page: currentPage > totalPages ? totalPages : currentPage,
             limit: parseInt(limit, 10) || 10,
             sort: { createdAt: -1 },
         };
+
+        // Check if the requested page is within the valid range
+        if (currentPage > totalPages) {
+            return res.status(200).json({ data: [], totalPages });
+        }
+
+        options.page = currentPage;
 
         const result = await AddPoojaMantraSchema.paginate(query, options);
 

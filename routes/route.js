@@ -24,8 +24,9 @@ import { createBlog, getAllBlog } from '../controller/blog-api.js';
 import { getPanchang } from '../controller/panchang-api.js';
 import { createHomeFeedback, getAllHomePageFeedback } from '../controller/home-feedback-api.js';
 import { getOlaMap } from '../controller/ola-maps-api.js';
-import {createVedicPandit, getAllVedicPandit, getPanditById} from '../controller/vedic-pandit-api.js'
+import {createVedicPandit, getAllVedicPandit, getPanditById, updateVedicPandit, getPanditByPooja} from '../controller/vedic-pandit-api.js'
 import { createFeedbackReviews, getAllFeedbackReviews } from '../controller/feedback-reviews-api.js';
+import { createPooja, getAllPoojas, getPoojaById } from '../controller/pooja-api.js';
 
 
 //configer express router
@@ -149,10 +150,18 @@ router.get('/autocomplete', getOlaMap)
 router.post('/create-vedic-pandit', createVedicPandit);
 router.get('/get-vedic-pandits', getAllVedicPandit);
 router.get('/get-pandit-by-id/:panditId', getPanditById);
+router.put('/vedic-pandit/:id', updateVedicPandit);
+router.get('/get-pandit-by-pooja/:poojaId', getPanditByPooja);
 
 //feedback review
 router.post('/create-feedback-review', createFeedbackReviews);
 router.get('/get-feedback-review', getAllFeedbackReviews);
+
+//pooja
+router.post('/create-pooja', createPooja);
+router.get('/get-all-poojas', getAllPoojas);
+router.get('/get-pooja-by-id/:poojaId', getPoojaById);
+
 
 
 

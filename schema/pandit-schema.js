@@ -31,15 +31,24 @@ const panditBlog = new mongoose.Schema(
     
 );
 
+const poojaNames = new mongoose.Schema(
+
+    {
+        poojaId: { type: String, required: true },
+        poojaName: { type: String, required: true },
+        oldPrice: { type: String, required: true },
+        newPrice: { type: String, required: true },
+        imageUrl: {type: String, required: true}
+    },
+    
+);
+
 
 const PanditSchema = new mongoose.Schema(
 
     {
         name: { type: String, required: true },
         profileImage: { type: String, required: true },
-        oldPrice: { type: String, required: true },
-        newPrice: { type: String, required: true },
-        poojaNames: { type: [String], required: true },
         experience: { type: String, required: true },
         language: { type: [String], required: true },
         education: { type: [String], required: true },
@@ -53,9 +62,10 @@ const PanditSchema = new mongoose.Schema(
         faq: { type: [faqSchema], required: true },
         videoUrl: { type: [videoUrl], required: true },
         panditBlog: { type: [panditBlog], required: true },
-
+        poojaNames: { type: [poojaNames], required: true },
 
     },
+    
     {
         timestamps: true
     }
