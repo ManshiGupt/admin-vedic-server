@@ -108,32 +108,54 @@ export const getAllPoojas = async (req, res) => {
     }
 };
 
-
-
-
 export const getPoojaById = async (req, res) => {
-
     const poojaId = req.params.poojaId;
 
-    // console.log(poojaId)
-
     try {
-        // Find pandit by id
+        // Find pooja by id
         const poojaItem = await AddPoojaSchema.findById(poojaId);
 
         if (!poojaItem) {
             return res.status(404).json({ message: 'Pooja not found' });
         }
 
-        // Fetch feedback reviews associated with the pandit
+        // Fetch feedback reviews associated with the pooja
         const feedbackReviews = await AddFeedbackReview.find({ poojaId });
 
         // Calculate average star rating
         const totalStars = feedbackReviews.reduce((total, review) => total + review.stars, 0);
         const avgStars = feedbackReviews.length ? (totalStars / feedbackReviews.length).toFixed(1) : 0;
 
-        // Return the pandit and associated feedback reviews with average star rating
-        res.status(200).json({ poojaItem, feedbackReviews, avgStars });
+        // Fetch pandit data to calculate min and max prices
+        const panditData = await AddPanditSchema.find({ 'poojaNames.poojaId': poojaId });
+
+        let minPrice = Infinity;
+        let maxPrice = -Infinity;
+
+        panditData.forEach(pandit => {
+            pandit.poojaNames.forEach(poojaName => {
+                if (poojaName.poojaId.toString() === poojaId.toString()) {
+                    const price = parseFloat(poojaName.newPrice);
+                    if (price < minPrice) minPrice = price;
+                    if (price > maxPrice) maxPrice = price;
+                }
+            });
+        });
+
+        if (minPrice === Infinity) minPrice = 0; // Handle case where no price was found
+        if (maxPrice === -Infinity) maxPrice = 0; // Handle case where no price was found
+
+        // Merge the poojaItem with the additional fields
+        const responseData = {
+            ...poojaItem.toObject(),
+            avgStars,
+            feedbackReviews,
+            minPrice,
+            maxPrice
+        };
+
+        // Return the merged object
+        res.status(200).json(responseData);
 
     } catch (error) {
         console.error('first error', error);

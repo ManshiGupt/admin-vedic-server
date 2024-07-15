@@ -15,6 +15,7 @@ const FeedbackReview = new mongoose.Schema(
         panditId: { type: String},
         userId: {type: String},
         reviewImages: { type: [String], required: true },
+        status: {type: String, required: true}
 
     },
 

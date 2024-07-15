@@ -25,3 +25,26 @@ export const createPoojaBooking = async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error });
     }
 };
+
+
+export const getAllPoojaBooking = async (req, res) => {
+
+    try {
+
+        const { userId } = req.query;
+
+        // console.log(userId)
+
+        // Build the query to filter bookings by userId in userDetails array
+        const query = { 'userDetails._id': userId };
+
+        // Fetch the results from the database using the constructed query
+        const result = await AddPoojaBookingSchema.find(query);
+
+        res.status(200).json({ data: result });
+
+    } catch (error) {
+
+        res.status(500).json({ message: error.message });
+    }
+};

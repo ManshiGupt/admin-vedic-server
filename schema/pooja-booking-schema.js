@@ -12,6 +12,7 @@ const PoojaBookingSchema = new mongoose.Schema(
         orderId: { type: String},
         poojaDate: {type: String},
         poojaTime: {type: String},
+        bookingStatus: {type: String}
         
     },
 

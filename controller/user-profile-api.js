@@ -10,6 +10,7 @@ export const createUser = async (req, res) => {
     const contactNo = data.contactNo;
 
     try {
+        
         // Check if the user already exists and update if it does, otherwise create a new one
         const user = await AddUserProfileSchema.findOneAndUpdate({ contactNo }, data , { new: true, upsert: true, setDefaultsOnInsert: true });
 
@@ -20,12 +21,17 @@ export const createUser = async (req, res) => {
         
         // Check if the error is a validation error
         if (error.name === 'ValidationError') {
+
             // Handle validation errors
             return res.status(400).json({ message: error.message });
+
         } else if (error.code === 11000) {
+
             // Handle duplicate key errors (e.g., unique constraint violation)
             return res.status(409).json({ message: 'Duplicate key error' });
+
         } else {
+
             // Handle other errors
             console.error(error);
             return res.status(500).json({ message: 'Internal server error' });

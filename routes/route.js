@@ -27,7 +27,8 @@ import { getOlaMap } from '../controller/ola-maps-api.js';
 import {createVedicPandit, getAllVedicPandit, getPanditById, updateVedicPandit, getPanditByPooja} from '../controller/vedic-pandit-api.js'
 import { createFeedbackReviews, getAllFeedbackReviews } from '../controller/feedback-reviews-api.js';
 import { createPooja, getAllPoojas, getPoojaById } from '../controller/pooja-api.js';
-import { createPoojaBooking } from '../controller/pooja-booking-api.js';
+import { createPoojaBooking, getAllPoojaBooking} from '../controller/pooja-booking-api.js';
+import { createSupportApi } from '../controller/support-api.js';
 
 
 //configer express router
@@ -165,6 +166,10 @@ router.get('/get-pooja-by-id/:poojaId', getPoojaById);
 
 //pooja booking
 router.post('/create-pooja-booking', createPoojaBooking);
+router.get('/get-pooja-booking', getAllPoojaBooking);
+
+//support
+router.post('/create-support-query', createSupportApi);
 
 
 
