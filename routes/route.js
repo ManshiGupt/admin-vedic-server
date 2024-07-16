@@ -29,6 +29,7 @@ import { createFeedbackReviews, getAllFeedbackReviews } from '../controller/feed
 import { createPooja, getAllPoojas, getPoojaById } from '../controller/pooja-api.js';
 import { createPoojaBooking, getAllPoojaBooking} from '../controller/pooja-booking-api.js';
 import { createSupportApi } from '../controller/support-api.js';
+import { getHomePageDataApi } from '../controller/home-page-api.js';
 
 
 //configer express router
@@ -170,6 +171,9 @@ router.get('/get-pooja-booking', getAllPoojaBooking);
 
 //support
 router.post('/create-support-query', createSupportApi);
+
+//homePageApi
+router.get('/get-home-page-data', getHomePageDataApi);
 
 
 
