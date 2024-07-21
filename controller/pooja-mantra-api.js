@@ -27,7 +27,9 @@ export const createPoojaMantra = async (req, res) => {
 };
 
 export const getAllPoojaMantra = async (req, res) => {
+    
     try {
+
         const { searchText, currentPage, limit, category, exercise } = req.query;
 
         const query = {};

@@ -109,6 +109,7 @@ export const getAllPoojas = async (req, res) => {
 };
 
 export const getPoojaById = async (req, res) => {
+    
     const poojaId = req.params.poojaId;
 
     try {

@@ -30,6 +30,7 @@ import { createPooja, getAllPoojas, getPoojaById } from '../controller/pooja-api
 import { createPoojaBooking, getAllPoojaBooking} from '../controller/pooja-booking-api.js';
 import { createSupportApi } from '../controller/support-api.js';
 import { getHomePageDataApi } from '../controller/home-page-api.js';
+import { createBookingSlot, getAllBookingSlots } from '../controller/add-booking-slot-api.js';
 
 
 //configer express router
@@ -174,6 +175,10 @@ router.post('/create-support-query', createSupportApi);
 
 //homePageApi
 router.get('/get-home-page-data', getHomePageDataApi);
+
+//support
+router.post('/booking-slot', createBookingSlot);
+router.get('/get-booking-slot', getAllBookingSlots);
 
 
 

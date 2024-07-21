@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 const faqSchema = new mongoose.Schema(
+
     {
         title: { type: String, required: true },
         descriptions: { type: String, required: true },
@@ -45,7 +46,7 @@ const PoojaSchema = new mongoose.Schema(
 
         poojaTag: { type: String, required: true },
 
-        poojaDuration: { type: String, required: true },
+        poojaDuration: {type: Number, required: true},
         tithi: { type: String},
 
         aboutPooja: { type: String, required: true },
