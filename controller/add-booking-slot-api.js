@@ -32,11 +32,13 @@ export const getAllBookingSlots = async (req, res) => {
   try {
 
 
-    const { panditId, poojaId, slotDate } = req.query;
+    // const { panditId, poojaId, slotDate } = req.query;
 
-    if (!panditId || !poojaId || !slotDate) {
+    const { panditId, slotDate } = req.query;
 
-      return res.status(400).json({ message: 'panditId, poojaId and slotDate are required query parameters' });
+    if (!panditId || !slotDate) {
+
+      return res.status(400).json({ message: 'panditId and slotDate are required query parameters' });
 
     }
 
@@ -45,7 +47,7 @@ export const getAllBookingSlots = async (req, res) => {
     const query = {
 
       panditId: panditId,
-      poojaId: poojaId,
+      // poojaId: poojaId,
       slotDate: slotDate
 
     };
@@ -62,7 +64,7 @@ export const getAllBookingSlots = async (req, res) => {
 
 
   } catch (error) {
-    
+
     console.error('Error fetching booking slots:', error);
     res.status(500).json({ message: error.message });
   }

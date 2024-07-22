@@ -8,11 +8,18 @@ const PoojaBookingSchema = new mongoose.Schema(
         bookingData: { type: Array},
         deliveryAddressData: { type: Array},
         userDetails: { type: Array},
+
         paymentId: { type: String},
         orderId: { type: String},
+        
+        tokenAmount: {type: String},
+        balanceAmount: {type: String},
+
         poojaDate: {type: String},
         poojaTime: {type: String},
-        bookingStatus: {type: String}
+
+        bookingStatus: {type: String},
+        additionalRemark: {type: String},
         
     },
 
