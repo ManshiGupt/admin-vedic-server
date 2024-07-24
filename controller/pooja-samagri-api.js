@@ -31,11 +31,15 @@ export const getAllPoojaSamagri = async (req, res) => {
         
         const { currentPage, limit, category } = req.query;
 
+        const updatedCategory = category.replace(/\s*\(.*?\)\s*/g, '');
+
+        // console.log(updatedCategory)
+
         const query = {};
 
        
         if (category) {
-            const categories = Array.isArray(category) ? category : [category];
+            const categories = Array.isArray(updatedCategory) ? updatedCategory : [updatedCategory];
             query['category'] = { $in: categories.map(cat => new RegExp(cat, 'i')) };
         }
 

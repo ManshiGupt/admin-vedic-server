@@ -69,3 +69,27 @@ export const getAllBookingSlots = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+export const updateBookingSlots = async (req, res) => {
+
+  try {
+
+      const { id } = req.params; // Assuming you pass the id as a URL parameter
+      const data = req.body;
+
+      // Find the document by id and update it with the new data
+      const updatedData = await AddBookingSlotSchema.findByIdAndUpdate(id, data, { new: true });
+
+      if (!updatedData) {
+          return res.status(404).json({ message: 'Slot booking not found' });
+      }
+
+      res.status(200).json(updatedData);
+      
+  } catch (error) {
+      // Handle other errors
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error', error });
+  }
+};

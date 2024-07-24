@@ -26,11 +26,11 @@ import { createHomeFeedback, getAllHomePageFeedback } from '../controller/home-f
 import { getOlaMap } from '../controller/ola-maps-api.js';
 import {createVedicPandit, getAllVedicPandit, getPanditById, updateVedicPandit, getPanditByPooja} from '../controller/vedic-pandit-api.js'
 import { createFeedbackReviews, getAllFeedbackReviews } from '../controller/feedback-reviews-api.js';
-import { createPooja, getAllPoojas, getPoojaById } from '../controller/pooja-api.js';
-import { createPoojaBooking, getAllPoojaBooking} from '../controller/pooja-booking-api.js';
+import { createPooja, getAllPoojas, getPoojaById, updatePooja } from '../controller/pooja-api.js';
+import { createPoojaBooking, getAllPoojaBooking, updatePoojaBooking} from '../controller/pooja-booking-api.js';
 import { createSupportApi } from '../controller/support-api.js';
 import { getHomePageDataApi } from '../controller/home-page-api.js';
-import { createBookingSlot, getAllBookingSlots } from '../controller/add-booking-slot-api.js';
+import { createBookingSlot, getAllBookingSlots, updateBookingSlots } from '../controller/add-booking-slot-api.js';
 import { createTransaction } from '../controller/transaction-api.js';
 import { createPoojaSamagri, getAllPoojaSamagri, updatePoojaSamagri } from '../controller/pooja-samagri-api.js';
 
@@ -167,10 +167,12 @@ router.get('/get-feedback-review', getAllFeedbackReviews);
 router.post('/create-pooja', createPooja);
 router.get('/get-all-poojas', getAllPoojas);
 router.get('/get-pooja-by-id/:poojaId', getPoojaById);
+router.put('/update-pooja/:id', updatePooja);
 
 //pooja booking
 router.post('/create-pooja-booking', createPoojaBooking);
 router.get('/get-pooja-booking', getAllPoojaBooking);
+router.put('/update-pooja-booking/:id', updatePoojaBooking);
 
 //support
 router.post('/create-support-query', createSupportApi);
@@ -181,6 +183,7 @@ router.get('/get-home-page-data', getHomePageDataApi);
 //support
 router.post('/booking-slot', createBookingSlot);
 router.get('/get-booking-slot', getAllBookingSlots);
+router.put('/update-booking-slot/:id', updateBookingSlots);
 
 //transaction
 router.post('/create-transaction', createTransaction);

@@ -57,7 +57,7 @@ export const getAllPoojas = async (req, res) => {
         const options = {
             page: currentPage,
             limit: parseInt(limit, 10) || 10,
-            sort: { updatedAt: 1 },
+            // sort: { updatedAt: 1 },
         };
 
         const result = await AddPoojaSchema.paginate(query, options);
@@ -107,6 +107,7 @@ export const getAllPoojas = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 export const getPoojaById = async (req, res) => {
     
@@ -163,3 +164,28 @@ export const getPoojaById = async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error });
     }
 };
+
+export const updatePooja = async (req, res) => {
+
+    try {
+
+        const { id } = req.params; // Assuming you pass the id as a URL parameter
+        const data = req.body;
+
+        // Find the document by id and update it with the new data
+        const updatedData = await AddPoojaSchema.findByIdAndUpdate(id, data, { new: true });
+
+        if (!updatedData) {
+            return res.status(404).json({ message: 'Pooja Samagri not found' });
+        }
+
+        res.status(200).json(updatedData);
+
+    } catch (error) {
+
+        // Handle other errors
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};
+
