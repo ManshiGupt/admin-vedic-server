@@ -32,6 +32,7 @@ import { createSupportApi } from '../controller/support-api.js';
 import { getHomePageDataApi } from '../controller/home-page-api.js';
 import { createBookingSlot, getAllBookingSlots } from '../controller/add-booking-slot-api.js';
 import { createTransaction } from '../controller/transaction-api.js';
+import { createPoojaSamagri, getAllPoojaSamagri, updatePoojaSamagri } from '../controller/pooja-samagri-api.js';
 
 
 //configer express router
@@ -183,6 +184,11 @@ router.get('/get-booking-slot', getAllBookingSlots);
 
 //transaction
 router.post('/create-transaction', createTransaction);
+
+//pooja samagri
+router.post('/create-pooja-samagri', createPoojaSamagri);
+router.get('/get-all-pooja-samagri', getAllPoojaSamagri);
+router.put('/update-pooja-samagri/:id', updatePoojaSamagri);
 
 
 

@@ -89,7 +89,9 @@ export const updateUser = async (req, res) => {
 
         // Check if the user was found and updated
         if (!updatedUser) {
+
             return res.status(404).json({ message: 'User not found' });
+            
         }
 
         // Return the updated user data

@@ -20,6 +20,7 @@ const PoojaBookingSchema = new mongoose.Schema(
 
         bookingStatus: {type: String},
         additionalRemark: {type: String},
+        pujaSamagri: {type: Boolean}
         
     },
 

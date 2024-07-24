@@ -15,9 +15,10 @@ const s3Client = new S3Client({
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
+// upload single file
 export const uploadFile = async (req, res) => {
 
-    upload.single('file')(req, res, async (err) => {
+    upload.single('file') (req, res, async (err) => {
 
 
         if (err) {
