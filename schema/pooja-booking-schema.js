@@ -23,7 +23,14 @@ const PoojaBookingSchema = new mongoose.Schema(
         pujaSamagri: {type: Boolean},
         bookingCancelRemark: {type: String, default: ''},
         cancelBy: {type: String, default: ''},
-        bookingSlotId: {type: String}
+        bookingSlotId: {type: String},
+        panditRemark: {trype: String},
+
+        finalAmount: {type: String},
+
+        paymentId2: { type: String},
+        orderId2: { type: String},
+        
         
     },
 
