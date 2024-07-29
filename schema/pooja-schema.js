@@ -55,6 +55,7 @@ const PoojaSchema = new mongoose.Schema(
         visibility: { type: Boolean, required: true },
         index: { type: Number, required: true },
         panditNo: {type: Number, required: true},
+        poojaInstructionPdf: {type: String, required: true},
 
         faq: { type: [faqSchema], required: true },
         // videoUrl: { type: [videoUrl], required: true },

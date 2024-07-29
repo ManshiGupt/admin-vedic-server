@@ -33,6 +33,7 @@ import { getHomePageDataApi } from '../controller/home-page-api.js';
 import { createBookingSlot, getAllBookingSlots, updateBookingSlots } from '../controller/add-booking-slot-api.js';
 import { createTransaction } from '../controller/transaction-api.js';
 import { createPoojaSamagri, getAllPoojaSamagri, updatePoojaSamagri } from '../controller/pooja-samagri-api.js';
+import { createDailyQuote, getQuoteOfTheDay } from '../controller/add-daily-quote-api.js';
 
 
 //configer express router
@@ -192,6 +193,11 @@ router.post('/create-transaction', createTransaction);
 router.post('/create-pooja-samagri', createPoojaSamagri);
 router.get('/get-all-pooja-samagri', getAllPoojaSamagri);
 router.put('/update-pooja-samagri/:id', updatePoojaSamagri);
+
+
+//quote of the day
+router.post('/create-quote-of-the-day', createDailyQuote);
+router.get('/get-quote-of-the-day', getQuoteOfTheDay);
 
 
 
