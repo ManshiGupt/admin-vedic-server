@@ -10,13 +10,15 @@ const faqSchema = new mongoose.Schema(
     },
 );
 
-const videoUrl = new mongoose.Schema(
+const poojaBookPdf = new mongoose.Schema(
+
     {
         title: { type: String, required: true },
-        thumbnail: { type: String, required: true },
-        videoUrl: { type: String, required: true },
+        pdfUrl: { type: String, required: true },
         index: { type: Number, required: true }
+
     },
+
 );
 
 const poojaBlog = new mongoose.Schema(
@@ -55,10 +57,9 @@ const PoojaSchema = new mongoose.Schema(
         visibility: { type: Boolean, required: true },
         index: { type: Number, required: true },
         panditNo: {type: Number, required: true},
-        poojaInstructionPdf: {type: String, required: true},
 
         faq: { type: [faqSchema], required: true },
-        // videoUrl: { type: [videoUrl], required: true },
+        poojaBookPdf: { type: [poojaBookPdf], required: true },
         poojaBlog: { type: [poojaBlog], required: true },
 
     },

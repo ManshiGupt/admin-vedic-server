@@ -26,6 +26,7 @@ export const sendOTP = async (req, res) => {
         const response = await axios.post('https://auth.otpless.app/auth/otp/v1/send', requestData, {
 
             headers: {
+
                 clientId: process.env.OTPLESS_CLIENT_ID,
                 clientSecret: process.env.OTPLESS_CLIENT_SECRET,
                 'Content-Type': 'application/json'
@@ -46,6 +47,8 @@ export const sendOTP = async (req, res) => {
         console.error('Error sending OTP:', error);
         res.status(500).json({ message: 'Internal server error', error: error.message });
     }
+
+    
 };
 
 
@@ -61,11 +64,14 @@ export const verifyOTP = async (req, res) => {
 
         // Make an HTTP POST request to verify the OTP
         const response = await axios.post('https://auth.otpless.app/auth/otp/v1/verify', requestData, {
+
             headers: {
+                
                 clientId: process.env.OTPLESS_CLIENT_ID,
                 clientSecret: process.env.OTPLESS_CLIENT_SECRET,
                 'Content-Type': 'application/json'
             }
+
         });
 
         // Generate JWT token with permissions included in payload
