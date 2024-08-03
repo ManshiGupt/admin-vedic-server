@@ -50,7 +50,7 @@ export const getAllQuotes = async (req, res) => {
 
         const options = {
             limit: parseInt(limit, 10) || 10,
-            // sort: { createdAt: -1 },
+            sort: { createdAt: -1 },
         };
 
         // console.log('current page', currentPage)
