@@ -17,6 +17,8 @@ const UserProfileSchema = new mongoose.Schema(
         state: { type: String, default: '' },
 
         profilePic: { type: String, default: '' },
+        aadharNo: { type: String, default: '' },
+        profileStatus: { type: String, default: 'Not Verified' },
 
     },
     {

@@ -2,11 +2,11 @@ import express from 'express'
 
 import { validateTokenForApi, validateTokenForRoute } from '../middleware/token-verification.js';
 
-import { createUser, getUserByContactNo, getAllUsers, updateUser, deleteUser } from '../controller/user-profile-api.js';
+import { createUser, getUserByContactNo, getAllUsers, updateUser, deleteUser, profileVerificationRequest } from '../controller/user-profile-api.js';
 import { createFaqHelp, getAllFaq, deleteFaq, updateFaq, downloadFaqExcelFile } from '../controller/faq-help-api.js';
 import { userRegistration, userLogin } from '../controller/user-registration-api.js';
 import { sendOTP, verifyOTP, resendOTP } from '../controller/send-otp-api.js';
-import { uploadFile } from '../controller/file-upload.api.js';
+import { uploadFile, uploadPostImage } from '../controller/file-upload.api.js';
 import { addToCart, getCartData, removeCartItem, removeCartItemAll, getAllCartData } from '../controller/product-cart.js';
 import { addProduct, getProduct, getProductById } from '../controller/add-product-api.js';
 import { addDeliveryAddress, getDeliveryAddress, updateDeliveryAdd, deleteDeliveryAdd } from '../controller/delivery-address-api.js';
@@ -34,6 +34,7 @@ import { createBookingSlot, getAllBookingSlots, updateBookingSlots } from '../co
 import { createTransaction } from '../controller/transaction-api.js';
 import { createPoojaSamagri, getAllPoojaSamagri, updatePoojaSamagri } from '../controller/pooja-samagri-api.js';
 import { createDailyQuote, getQuoteOfTheDay } from '../controller/add-daily-quote-api.js';
+import { createPost, getAllPost, updatePost, deletePost, getPostByUserId, reportPost } from '../controller/post-api.js';
 
 
 //configer express router
@@ -60,6 +61,9 @@ router.put('/update-user/:id', updateUser);
 //delete user
 router.delete('/delete-user/:id', deleteUser)
 
+//user profile verification request
+router.post('/profile-verification-request', profileVerificationRequest)
+
 
 //faq section
 
@@ -81,6 +85,9 @@ router.post('/resend-otp', resendOTP)
 
 //upload file
 router.post('/upload-image', uploadFile)
+router.post('/upload-post-image', uploadPostImage)
+
+
 
 //add to cart
 router.post('/add-to-cart/:userId', addToCart)
@@ -198,6 +205,15 @@ router.put('/update-pooja-samagri/:id', updatePoojaSamagri);
 //quote of the day
 router.post('/create-quote-of-the-day', createDailyQuote);
 router.get('/get-quote-of-the-day', getQuoteOfTheDay);
+
+
+//post
+router.post('/add-post', createPost)
+router.get('/get-all-post', getAllPost)
+router.get('/get-post-by-user/:userId', getPostByUserId)
+router.put('/update-post/:id', updatePost)
+router.delete('/delete-post/:id', deletePost);
+router.post('/report-post', reportPost);
 
 
 

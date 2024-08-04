@@ -64,6 +64,8 @@ export const updateDeliveryAdd = async (req, res) => {
     }
 };
 
+
+
 export const deleteDeliveryAdd = async (req, res) => {
     try {
         const { id } = req.params;
