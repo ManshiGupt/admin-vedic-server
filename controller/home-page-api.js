@@ -60,7 +60,9 @@ export const getHomePageDataApi = async (req, res) => {
             products,
             blogs,
             shortVideos,
-            homePageFeedback
+            homePageFeedback,
+            appVersion: '1.0.1'
+            
         });
 
     } catch (error) {
