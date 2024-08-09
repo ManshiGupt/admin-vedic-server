@@ -55,9 +55,11 @@ export const getAllPoojas = async (req, res) => {
         }
 
         const options = {
+
             page: currentPage,
             limit: parseInt(limit, 10) || 10,
-            // sort: { updatedAt: 1 },
+            sort: { index: -1 },
+
         };
 
         const result = await AddPoojaSchema.paginate(query, options);
@@ -114,6 +116,7 @@ export const getPoojaById = async (req, res) => {
     const poojaId = req.params.poojaId;
 
     try {
+        
         // Find pooja by id
         const poojaItem = await AddPoojaSchema.findById(poojaId);
 
@@ -164,6 +167,8 @@ export const getPoojaById = async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error });
     }
 };
+
+
 
 export const updatePooja = async (req, res) => {
 

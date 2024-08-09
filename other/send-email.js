@@ -11,17 +11,25 @@ const sesClient = new SESClient({
 const sendEmail = async ({ to, subject, message }) => {
     
     const params = {
+
         Destination: {
+
             ToAddresses: [to]
         },
+
         Message: {
+
             Body: {
                 Text: { Data: message }
             },
+
             Subject: { Data: subject }
+
         },
+
         // Source: 'noreply@devzilla.co.in' // Replace with your verified email address
         Source: 'noreply@motionofknowledge.com'
+
     };
 
     try {
@@ -31,6 +39,7 @@ const sendEmail = async ({ to, subject, message }) => {
         return data;
 
     } catch (error) {
+        
         console.error("Error sending email:", error);
         throw error;
     }
