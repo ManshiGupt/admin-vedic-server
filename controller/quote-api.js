@@ -73,3 +73,46 @@ export const getAllQuotes = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+export const updateQuote = async (req, res) => {
+    
+    const { id } = req.params;
+    const data = req.body;
+
+    try {
+        // Find the document by ID and update it with the new data
+        const updatedData = await AddQuoteSchema.findByIdAndUpdate(id, data, { new: true });
+
+        if (!updatedData) {
+            return res.status(404).json({ message: 'Quote not found' });
+        }
+
+        // Return the updated data
+        res.status(200).json(updatedData);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};
+
+
+export const deleteQuote = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        // Find the document by ID and delete it
+        const deletedData = await AddQuoteSchema.findByIdAndDelete(id);
+
+        if (!deletedData) {
+            return res.status(404).json({ message: 'Quote not found' });
+        }
+
+        // Return a success message
+        res.status(200).json({ message: 'Quote deleted successfully' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};

@@ -19,7 +19,7 @@ import { createSamagriCategory, getAllSamagriCategory } from '../controller/sama
 import { createPoojaCategory, getAllPoojaCategory } from '../controller/pooja-category-api.js';
 import { createHomePageBanner, getAllHomePageBanner } from '../controller/home-page-banner-api.js';
 import { createShortVideo, getAllShortVideo } from '../controller/short-video-api.js';
-import { createQuote, getAllQuotes } from '../controller/quote-api.js';
+import { createQuote, getAllQuotes, deleteQuote, updateQuote } from '../controller/quote-api.js';
 import { createBlog, getAllBlog } from '../controller/blog-api.js';
 import { getPanchang } from '../controller/panchang-api.js';
 import { createHomeFeedback, getAllHomePageFeedback } from '../controller/home-feedback-api.js';
@@ -145,6 +145,8 @@ router.get('/get-short-video', getAllShortVideo);
 //quote
 router.post('/create-quote', createQuote);
 router.get('/get-quotes', getAllQuotes);
+router.put('/update-quote/:id', updateQuote);
+router.delete('/delete-quote/:id', deleteQuote);
 
 //blog
 router.post('/create-blog', createBlog);

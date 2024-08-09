@@ -61,7 +61,7 @@ export const getHomePageDataApi = async (req, res) => {
             blogs,
             shortVideos,
             homePageFeedback,
-            appVersion: '1.0.0'
+            appVersion: '1.0.1'
             
         });
 
