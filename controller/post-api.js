@@ -1,5 +1,6 @@
 import AddPostSchema from "../schema/post-schema.js";
 import AddReportPost from "../schema/report-post-schema.js";
+import { createNotification } from "./notification-api.js";
 
 // router.post('/add-post', createPost)
 // router.get('/get-post', getAllPost)
@@ -34,8 +35,8 @@ export const createPost = async (req, res) => {
 };
 
 
-
 export const getAllPost = async (req, res) => {
+
     const { searchText, currentPage, limit, status = 'Live' } = req.query;
 
     try {
@@ -80,25 +81,37 @@ export const updatePost = async (req, res) => {
 
         const { id } = req.params;
         const data = req.body;
-
+       
         // Find the existing delivery address by id and update it
         const updatedData = await AddPostSchema.findByIdAndUpdate(id, data, { new: true });
 
         // Check if the delivery address exists
         if (!updatedData) {
-            return res.status(404).json({ message: 'Delivery address not found' });
+            return res.status(404).json({ message: 'Post Not found' });
         }
 
-        // Destructure userId out of the updatedData object and use the rest for the response
-        // const { userId, ...responseData } = updatedData.toObject();
 
-        // res.status(200).json(responseData);
+        // Prepare data for the notification
+        const notificationDataMain = {
+
+            userId: data.userId,
+            title: 'Your post has been updated successfully.',
+            pageUrl: '/(tabs)/profile/posts',
+            read: false
+
+        };
+
+
+        createNotification(notificationDataMain);
+
 
         res.status(200).json({ message: 'success' });
 
     } catch (error) {
+
         console.error(error);
         res.status(500).json({ message: 'Internal server error', error });
+
     }
 };
 
@@ -114,7 +127,7 @@ export const deletePost = async (req, res) => {
 
         // Check if the delivery address exists
         if (!deletedData) {
-            return res.status(404).json({ message: 'Delivery address not found' });
+            return res.status(404).json({ message: 'post data not found' });
         }
 
         // Destructure userId out of the deletedData object and use the rest for the response
@@ -137,6 +150,7 @@ export const getPostByUserId = async (req, res) => {
     const { searchText, currentPage, limit } = req.query;
 
     try {
+
         const userId = req.params.userId;
 
         const query = { userId }; // Ensure userId is included in the query

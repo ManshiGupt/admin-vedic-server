@@ -27,7 +27,7 @@ export const createRazorPayOrder = async (req, res) => {
 
         const order = await instance.orders.create(options);
 
-        console.log('razorpay order', order)
+        // console.log('razorpay order', order)
 
         // Check if order creation was successful
         if (!order) {

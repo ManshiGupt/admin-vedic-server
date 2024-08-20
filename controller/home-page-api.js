@@ -11,7 +11,9 @@ import AddHomePageFeedback from "../schema/home-testimonial.js";
 import AddFeedbackReview from "../schema/feedback-review-schema.js";
 
 export const getHomePageDataApi = async (req, res) => {
+
     try {
+        
         const { currentPage = 1, limit = 15 } = req.query;
         const options = { limit: parseInt(limit), skip: (currentPage - 1) * limit };
 

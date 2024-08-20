@@ -35,6 +35,7 @@ import { createTransaction } from '../controller/transaction-api.js';
 import { createPoojaSamagri, getAllPoojaSamagri, updatePoojaSamagri } from '../controller/pooja-samagri-api.js';
 import { createDailyQuote, getQuoteOfTheDay } from '../controller/add-daily-quote-api.js';
 import { createPost, getAllPost, updatePost, deletePost, getPostByUserId, reportPost } from '../controller/post-api.js';
+import { createNotification, getAllNotification, updateNotification, getTotalNotificationNos} from '../controller/notification-api.js';
 
 
 //configer express router
@@ -216,6 +217,14 @@ router.get('/get-post-by-user/:userId', getPostByUserId)
 router.put('/update-post/:id', updatePost)
 router.delete('/delete-post/:id', deletePost);
 router.post('/report-post', reportPost);
+
+
+//notification
+router.post('/add-notification', createNotification)
+router.get('/get-all-notification', getAllNotification)
+router.put('/update-notification/:id', updateNotification)
+router.get('/get-total-notification-nos', getTotalNotificationNos)
+
 
 
 

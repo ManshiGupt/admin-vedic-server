@@ -1,25 +1,47 @@
 
 import AddUserProfileSchema from '../schema/user-profile-schema.js';
 import AddProfileVerification from '../schema/profile-verification-schema.js';
+import { createNotification } from './notification-api.js';
 
 
 //creating new user (user registration)
 //test api url :http://localhost:8000/create-user/ (pass body data in json format)
 export const createUser = async (req, res) => {
-    
+
     const data = req.body;
     const contactNo = data.contactNo;
 
     try {
-        
+
         // Check if the user already exists and update if it does, otherwise create a new one
-        const user = await AddUserProfileSchema.findOneAndUpdate({ contactNo }, data , { new: true, upsert: true, setDefaultsOnInsert: true });
+        const user = await AddUserProfileSchema.findOneAndUpdate({ contactNo }, data, { new: true, upsert: true, setDefaultsOnInsert: true });
+
+
+        if (data.email && data.name) {
+
+
+            // Prepare data for the notification
+            const notificationDataMain = {
+                userId: user._id,
+                title: `🌟 Welcome to Vedic Pandit! 🌟 We're thrilled to have you on board. To tailor our services to your unique needs, please take a moment to update your profile. Your insights help us provide a more personalized and enriching experience. Thank you for being a part of our community! Warm regards, The Vedic Pandit Team`,
+
+                pageUrl: '/(tabs)/profile/edit-profile',
+                read: false
+            };
+
+
+            createNotification(notificationDataMain);
+
+
+        }
+
 
         // Return the created or updated user
         res.status(user.isNew ? 201 : 200).json(user);
 
+
     } catch (error) {
-        
+
         // Check if the error is a validation error
         if (error.name === 'ValidationError') {
 
@@ -92,7 +114,7 @@ export const updateUser = async (req, res) => {
         if (!updatedUser) {
 
             return res.status(404).json({ message: 'User not found' });
-            
+
         }
 
         // Return the updated user data
