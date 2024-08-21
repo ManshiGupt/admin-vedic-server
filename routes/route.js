@@ -37,6 +37,7 @@ import { createDailyQuote, getQuoteOfTheDay } from '../controller/add-daily-quot
 import { createPost, getAllPost, updatePost, deletePost, getPostByUserId, reportPost } from '../controller/post-api.js';
 import { createNotification, getAllNotification, updateNotification, getTotalNotificationNos} from '../controller/notification-api.js';
 import { createUserLog } from '../controller/user-log-api.js';
+import { createDeleteAccountRequest, getDeletedAccountInfo, deleteDeletedAccountRequest } from '../controller/account-delete-api.js';
 
 
 //configer express router
@@ -229,6 +230,11 @@ router.get('/get-total-notification-nos', getTotalNotificationNos)
 
 //user log
 router.post('/create-user-log', createUserLog)
+
+//account delete
+router.post('/delete-account', createDeleteAccountRequest)
+router.get('/deleted-account-info', getDeletedAccountInfo)
+router.delete('/delete-deleted-account-info/:id', deleteDeletedAccountRequest);
 
 
 
