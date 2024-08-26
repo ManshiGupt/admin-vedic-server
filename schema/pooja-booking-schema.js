@@ -9,27 +9,27 @@ const PoojaBookingSchema = new mongoose.Schema(
         deliveryAddressData: { type: Array},
         userDetails: { type: Array},
 
-        paymentId: { type: String, default: ''},
-        orderId: { type: String, default: ''},
+        paymentId: { type: String},
+        orderId: { type: String},
         
-        tokenAmount: {type: String, default: ''},
-        balanceAmount: {type: String, default: ''},
+        tokenAmount: {type: String},
+        balanceAmount: {type: String},
 
         poojaDate: {type: String},
         poojaTime: {type: String},
 
         bookingStatus: {type: String},
-        additionalRemark: {type: String, default: ''},
+        additionalRemark: {type: String},
         pujaSamagri: {type: Boolean},
         bookingCancelRemark: {type: String, default: ''},
         cancelBy: {type: String, default: ''},
-        bookingSlotId: {type: String, default: ''},
-        panditRemark: {trype: String, default: ''},
+        bookingSlotId: {type: String},
+        panditRemark: {type: String, default: ''},
 
-        finalAmount: {type: String, default: ''},
+        finalAmount: {type: String},
 
-        paymentId2: { type: String, default: ''},
-        orderId2: { type: String, default: ''},
+        paymentId2: { type: String},
+        orderId2: { type: String},
         
         
     },
