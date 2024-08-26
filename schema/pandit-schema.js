@@ -59,6 +59,25 @@ const PanditSchema = new mongoose.Schema(
         location: { type: String, required: true },
         about: { type: String, required: true },
 
+        contactNo: { type: String, required: true },
+        whatsAppNo: { type: String, required: true },
+        emailId: { type: String, required: true },
+        accountNo: { type: String, required: true },
+        ifscCode: { type: String, required: true },
+        bankName: { type: String, required: true },
+        branchName: { type: String, required: true },
+
+        aadharNo: { type: String, required: true },
+        panNo: { type: String, required: true },
+
+
+        aadharImageFront: { type: String, required: true },
+        aadharImageBack: { type: String, required: true },
+        panImage: { type: String, required: true },
+        chequeBookImage: { type: String, required: true },
+        
+
+
         faq: { type: [faqSchema], required: true },
         videoUrl: { type: [videoUrl], required: true },
         panditBlog: { type: [panditBlog], required: true },
@@ -68,6 +87,7 @@ const PanditSchema = new mongoose.Schema(
     
     {
         timestamps: true
+        
     }
 );
 

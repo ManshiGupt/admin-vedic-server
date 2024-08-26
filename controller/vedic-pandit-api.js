@@ -86,6 +86,7 @@ export const getAllVedicPandit = async (req, res) => {
     }
 };
 
+
 export const getPanditById = async (req, res) => {
 
     const panditId = req.params.panditId;
@@ -113,6 +114,7 @@ export const getPanditById = async (req, res) => {
         res.status(500).json({ message: 'Internal server error', error });
     }
 };
+
 
 export const updateVedicPandit = async (req, res) => {
 

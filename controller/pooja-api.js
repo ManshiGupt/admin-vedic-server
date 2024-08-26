@@ -58,7 +58,7 @@ export const getAllPoojas = async (req, res) => {
 
             page: currentPage,
             limit: parseInt(limit, 10) || 10,
-            sort: { index: -1 },
+            // sort: { index: -1 },
 
         };
 

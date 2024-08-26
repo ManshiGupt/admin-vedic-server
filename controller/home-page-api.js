@@ -13,8 +13,9 @@ import AddFeedbackReview from "../schema/feedback-review-schema.js";
 export const getHomePageDataApi = async (req, res) => {
 
     try {
-        
+
         const { currentPage = 1, limit = 15 } = req.query;
+
         const options = { limit: parseInt(limit), skip: (currentPage - 1) * limit };
 
         const [banners, poojaCategories, poojas, bhajanVideos, satsangVideos, pandits, quotes, products, blogs, shortVideos, homePageFeedback] = await Promise.all([
@@ -22,7 +23,8 @@ export const getHomePageDataApi = async (req, res) => {
             AddHomePageBannerSchema.find({}, null, options),
             AddPoojaCategory.find({}, null, options),
 
-            AddPoojaSchema.find({}, null, options).select('_id images title subtitle date tithi visibility index'),
+            // Sorting by 'index' in descending order
+            AddPoojaSchema.find({}, null, options).select('_id images title subtitle date tithi visibility index').sort({ index: -1 }),
 
             AddYouTubeVideoSchema.find({ fileType: 'Bhajan' }, null, options),
             AddYouTubeVideoSchema.find({ fileType: 'Satsang' }, null, options),
@@ -51,7 +53,7 @@ export const getHomePageDataApi = async (req, res) => {
         }));
 
         res.status(200).json({
-            
+
             banners,
             poojaCategories,
             poojas,
@@ -64,7 +66,7 @@ export const getHomePageDataApi = async (req, res) => {
             shortVideos,
             homePageFeedback,
             appVersion: '1.0.1'
-            
+
         });
 
     } catch (error) {
