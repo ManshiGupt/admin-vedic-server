@@ -28,27 +28,27 @@ export const createPoojaBooking = async (req, res) => {
 };
 
 
-// export const getAllPoojaBooking = async (req, res) => {
+export const getAllPoojaBooking1 = async (req, res) => {
 
-//     try {
+    try {
 
-//         const { userId } = req.query;
+        const { userId } = req.query;
 
-//         // console.log(userId)
+        // console.log(userId)
 
-//         // Build the query to filter bookings by userId in userDetails array
-//         const query = { 'userDetails._id': userId };
+        // Build the query to filter bookings by userId in userDetails array
+        const query = { 'userDetails._id': userId };
 
-//         // Fetch the results from the database using the constructed query
-//         const result = await AddPoojaBookingSchema.find(query);
+        // Fetch the results from the database using the constructed query
+        const result = await AddPoojaBookingSchema.find(query);
 
-//         res.status(200).json({ data: result });
+        res.status(200).json({ data: result });
 
-//     } catch (error) {
+    } catch (error) {
 
-//         res.status(500).json({ message: error.message });
-//     }
-// };
+        res.status(500).json({ message: error.message });
+    }
+};
 
 
 export const getAllPoojaBooking = async (req, res) => {
