@@ -30,7 +30,7 @@ const PoojaBookingSchema = new mongoose.Schema(
 
         paymentId2: { type: String},
         orderId2: { type: String},
-        
+        paymentRefundReffNo: {type: String, default: ''}
         
     },
 
