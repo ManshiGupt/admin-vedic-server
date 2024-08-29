@@ -28,7 +28,7 @@ export const createPoojaBooking = async (req, res) => {
 };
 
 
-export const getAllPoojaBooking1 = async (req, res) => {
+export const getAllPoojaBookingOld = async (req, res) => {
 
     try {
 
@@ -53,37 +53,55 @@ export const getAllPoojaBooking1 = async (req, res) => {
 
 export const getAllPoojaBooking = async (req, res) => {
     try {
-        const { userId } = req.query;
+        const { userId, category, currentPage = 1, limit = 10 } = req.query;
 
         // Build the query to filter bookings by userId in userDetails array
         const query = { 'userDetails._id': userId };
 
-        // Fetch the booking results from the database
-        const bookings = await AddPoojaBookingSchema.find(query);
+        if (category) {
+            query.$or = [
+                { 'bookingStatus': { $regex: category, $options: 'i' } },
+            ];
+        }
+
+        // Counting documents
+        const totalDocumentCount = await AddPoojaBookingSchema.countDocuments(query);
+        const totalPages = Math.ceil(totalDocumentCount / parseInt(limit, 10)); // Calculate total pages
+
+        // Check if the requested page is within the valid range
+        if (currentPage > totalPages) {
+            return res.status(200).json({ data: [], totalPages }); // Return empty array if currentPage exceeds totalPages
+        }
+
+        const options = {
+            page: currentPage, // Current page
+            limit: parseInt(limit, 10), // Number of records per page
+            sort: { createdAt: -1 }, // Sorting by createdAt in descending order
+            lean: true // Use lean for better performance if you don't need Mongoose documents
+        };
+
+        // Fetch the booking results from the database using pagination
+        const result = await AddPoojaBookingSchema.paginate(query, options);
 
         // Fetch the pandit contact details for each booking
         const bookingsWithPanditDetails = await Promise.all(
-
-            bookings.map(async (booking) => {
-
+            result.docs.map(async (booking) => {
                 const pandit = await AddPanditSchema.findById(booking.bookingData[0].panditId).select('contactNo whatsAppNo');
-
                 return {
-
-                    ...booking._doc,  // Spread the existing booking data
+                    ...booking,  // Spread the existing booking data
                     panditContactNo: pandit?.contactNo || null,  // Add pandit contact number
                     panditWhatsAppNo: pandit?.whatsAppNo || null // Add pandit WhatsApp number
                 };
-
             })
         );
 
-        res.status(200).json({ data: bookingsWithPanditDetails });
+        res.status(200).json({ data: bookingsWithPanditDetails, totalPages }); // Include totalPages in the response
 
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 
 export const updatePoojaBooking = async (req, res) => {
