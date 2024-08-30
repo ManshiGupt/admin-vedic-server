@@ -13,7 +13,7 @@ import { addDeliveryAddress, getDeliveryAddress, updateDeliveryAdd, deleteDelive
 import { createRazorPayOrder, razorPayOrderValidation } from '../controller/razorpay-api.js';
 import { createProductOrder } from '../controller/product-order-api.js';
 import { generateAnswerGoogleAI } from '../controller/open-ai-api.js';
-import { createYouTubeVideo, getAllYoutubeVideo } from '../controller/youtube-video-api.js';
+import { createYouTubeVideo, getAllYoutubeVideo, updateYoutubeVideo } from '../controller/youtube-video-api.js';
 import { createPoojaMantra, getAllPoojaMantra } from '../controller/pooja-mantra-api.js';
 import { createSamagriCategory, getAllSamagriCategory } from '../controller/samagri-category-api.js';
 import { createPoojaCategory, getAllPoojaCategory } from '../controller/pooja-category-api.js';
@@ -124,6 +124,7 @@ router.post('/generate-answer', generateAnswerGoogleAI)
 //youtube video
 router.post('/create-youtube-video', createYouTubeVideo);
 router.get('/get-youtube-video', getAllYoutubeVideo);
+router.put('/update-youtube-video/:id', updateYoutubeVideo);
 
 //pooja mantra
 router.post('/create-pooja-mantra', createPoojaMantra);

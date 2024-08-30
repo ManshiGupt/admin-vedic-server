@@ -40,6 +40,7 @@ export const getAllPost = async (req, res) => {
     const { searchText, currentPage, limit, status = 'Live' } = req.query;
 
     try {
+        
         const query = { status }; // Include status in the query
 
         if (searchText) {

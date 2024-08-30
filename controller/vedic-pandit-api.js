@@ -32,7 +32,7 @@ export const getAllVedicPandit = async (req, res) => {
 
         const { searchText, category, currentPage = 1, limit = 10 } = req.query; // Default currentPage to 1 and limit to 10 if not provided
 
-        const query = {}; // You can add conditions here if needed
+        const query = {visibility: true}; // You can add conditions here if needed
 
         if (searchText) {
 

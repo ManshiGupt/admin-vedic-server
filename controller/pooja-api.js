@@ -33,7 +33,7 @@ export const getAllPoojas = async (req, res) => {
     try {
         const { searchText, category, currentPage = 1, limit = 10 } = req.query;
 
-        const query = {};
+        const query = {visibility: true};
 
         if (searchText) {
             query.$or = [

@@ -24,12 +24,12 @@ export const getHomePageDataApi = async (req, res) => {
             AddPoojaCategory.find({}, null, options),
 
             // Sorting by 'index' in descending order
-            AddPoojaSchema.find({}, null, options).select('_id images title subtitle date tithi visibility index').sort({ index: -1 }),
+            AddPoojaSchema.find({ visibility: true }, null, options).select('_id images title subtitle date tithi visibility index').sort({ index: -1 }),
 
             AddYouTubeVideoSchema.find({ fileType: 'Bhajan' }, null, options),
             AddYouTubeVideoSchema.find({ fileType: 'Satsang' }, null, options),
 
-            AddPanditSchema.find({}, null, options).select('_id name profileImage experience language education visibility index verified location'),
+            AddPanditSchema.find({visibility: true}, null, options).select('_id name profileImage experience language education visibility index verified location'),
 
             AddQuoteSchema.find({}, null, options),
 

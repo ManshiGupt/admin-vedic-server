@@ -89,3 +89,26 @@ export const getAllYoutubeVideo = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+export const updateYoutubeVideo = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+        const data = req.body;
+
+        const updatedData = await AddYouTubeVideoSchema.findByIdAndUpdate(id, data, { new: true });
+
+        if (!updatedData) {
+            return res.status(404).json({ message: 'Youtube video not found' });
+        }
+
+        res.status(200).json(updatedData);
+        
+    } catch (error) {
+
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
+        
+    }
+}
