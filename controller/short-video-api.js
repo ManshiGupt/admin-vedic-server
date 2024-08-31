@@ -41,7 +41,7 @@ export const getAllShortVideo = async (req, res) => {
 
         const options = {
             limit: parseInt(limit, 10) || 15,
-            // sort: { createdAt: -1 },
+            sort: { index : -1 },
         };
 
         // Check if the requested page is within the valid range

@@ -36,7 +36,7 @@ export const getHomePageDataApi = async (req, res) => {
             Product.find({}, null, options).select('_id images title oldPrice newPrice visibility index'),
 
             AddBlogSchema.find({}, null, options),
-            AddShortVideoSchema.find({}, null, options),
+            AddShortVideoSchema.find({}, null, options).sort({ index: -1 }),
             AddHomePageFeedback.find({}, null, options)
 
         ]);
