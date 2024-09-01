@@ -62,3 +62,30 @@ export const getAllShortVideo = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+export const updateShortVideo = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+        const data = req.body;
+       
+        // Find the existing delivery address by id and update it
+        const updatedData = await AddShortVideoSchema.findByIdAndUpdate(id, data, { new: true });
+
+        // Check if the delivery address exists
+        if (!updatedData) {
+            return res.status(404).json({ message: 'Reels video not found' });
+        }
+
+
+        res.status(200).json({ updatedData });
+
+
+    } catch (error) {
+
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
+
+    }
+};

@@ -18,7 +18,7 @@ import { createPoojaMantra, getAllPoojaMantra } from '../controller/pooja-mantra
 import { createSamagriCategory, getAllSamagriCategory } from '../controller/samagri-category-api.js';
 import { createPoojaCategory, getAllPoojaCategory } from '../controller/pooja-category-api.js';
 import { createHomePageBanner, getAllHomePageBanner } from '../controller/home-page-banner-api.js';
-import { createShortVideo, getAllShortVideo } from '../controller/short-video-api.js';
+import { createShortVideo, getAllShortVideo, updateShortVideo } from '../controller/short-video-api.js';
 import { createQuote, getAllQuotes, deleteQuote, updateQuote } from '../controller/quote-api.js';
 import { createBlog, getAllBlog } from '../controller/blog-api.js';
 import { getPanchang } from '../controller/panchang-api.js';
@@ -38,6 +38,7 @@ import { createPost, getAllPost, updatePost, deletePost, getPostByUserId, report
 import { createNotification, getAllNotification, updateNotification, getTotalNotificationNos} from '../controller/notification-api.js';
 import { createUserLog } from '../controller/user-log-api.js';
 import { createDeleteAccountRequest, getDeletedAccountInfo, deleteDeletedAccountRequest } from '../controller/account-delete-api.js';
+import { getAllReelsAds, updateReelsAds, createReelsAds } from '../controller/reels-ads-api.js';
 
 
 //configer express router
@@ -145,6 +146,7 @@ router.get('/get-home-page-banner', getAllHomePageBanner);
 //short video
 router.post('/create-short-video', createShortVideo);
 router.get('/get-short-video', getAllShortVideo);
+router.put('/update-get-short-video/:id', updateShortVideo)
 
 //quote
 router.post('/create-quote', createQuote);
@@ -236,6 +238,12 @@ router.post('/create-user-log', createUserLog)
 router.post('/delete-account', createDeleteAccountRequest)
 router.get('/deleted-account-info', getDeletedAccountInfo)
 router.delete('/delete-deleted-account-info/:id', deleteDeletedAccountRequest);
+
+
+//reels ads
+router.post('/add-reels-ads', createReelsAds)
+router.get('/get-reels-ads', getAllReelsAds)
+router.put('/update-reels-ads/:id', updateReelsAds)
 
 
 
