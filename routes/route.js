@@ -39,6 +39,7 @@ import { createNotification, getAllNotification, updateNotification, getTotalNot
 import { createUserLog } from '../controller/user-log-api.js';
 import { createDeleteAccountRequest, getDeletedAccountInfo, deleteDeletedAccountRequest } from '../controller/account-delete-api.js';
 import { getAllReelsAds, updateReelsAds, createReelsAds } from '../controller/reels-ads-api.js';
+import { createPhotoGallery, getAllPhotoGallery, updatePhotoGallery } from '../controller/photo-gallery-api.js';
 
 
 //configer express router
@@ -244,6 +245,12 @@ router.delete('/delete-deleted-account-info/:id', deleteDeletedAccountRequest);
 router.post('/add-reels-ads', createReelsAds)
 router.get('/get-reels-ads', getAllReelsAds)
 router.put('/update-reels-ads/:id', updateReelsAds)
+
+
+//photo gallery
+router.post('/create-photo-gallery', createPhotoGallery);
+router.get('/get-all-photo-gallery', getAllPhotoGallery);
+router.put('/update-photo-gallery/:id', updatePhotoGallery);
 
 
 
