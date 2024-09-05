@@ -40,6 +40,7 @@ import { createUserLog } from '../controller/user-log-api.js';
 import { createDeleteAccountRequest, getDeletedAccountInfo, deleteDeletedAccountRequest } from '../controller/account-delete-api.js';
 import { getAllReelsAds, updateReelsAds, createReelsAds } from '../controller/reels-ads-api.js';
 import { createPhotoGallery, getAllPhotoGallery, updatePhotoGallery } from '../controller/photo-gallery-api.js';
+import { createTvSeries, getAllTVSeries, updateTVSeries } from '../controller/tv-series-api.js';
 
 
 //configer express router
@@ -251,6 +252,12 @@ router.put('/update-reels-ads/:id', updateReelsAds)
 router.post('/create-photo-gallery', createPhotoGallery);
 router.get('/get-all-photo-gallery', getAllPhotoGallery);
 router.put('/update-photo-gallery/:id', updatePhotoGallery);
+
+
+//tv series
+router.post('/create-tv-series', createTvSeries);
+router.get('/get-all-tv-series', getAllTVSeries);
+router.put('/update-tv-series/:id', updateTVSeries);
 
 
 
