@@ -14,7 +14,7 @@ import { createRazorPayOrder, razorPayOrderValidation } from '../controller/razo
 import { createProductOrder } from '../controller/product-order-api.js';
 import { generateAnswerGoogleAI } from '../controller/open-ai-api.js';
 import { createYouTubeVideo, getAllYoutubeVideo, updateYoutubeVideo } from '../controller/youtube-video-api.js';
-import { createPoojaMantra, getAllPoojaMantra } from '../controller/pooja-mantra-api.js';
+import { createPoojaMantra, getAllPoojaMantra, updatePoojaMantra } from '../controller/pooja-mantra-api.js';
 import { createSamagriCategory, getAllSamagriCategory } from '../controller/samagri-category-api.js';
 import { createPoojaCategory, getAllPoojaCategory } from '../controller/pooja-category-api.js';
 import { createHomePageBanner, getAllHomePageBanner } from '../controller/home-page-banner-api.js';
@@ -41,6 +41,8 @@ import { createDeleteAccountRequest, getDeletedAccountInfo, deleteDeletedAccount
 import { getAllReelsAds, updateReelsAds, createReelsAds } from '../controller/reels-ads-api.js';
 import { createPhotoGallery, getAllPhotoGallery, updatePhotoGallery } from '../controller/photo-gallery-api.js';
 import { createTvSeries, getAllTVSeries, updateTVSeries } from '../controller/tv-series-api.js';
+import { createBookmarkMantra, getAllBookmarkByUserId, deleteBookmarkMantra } from '../controller/bookmark-mantra-api.js';
+import { createVedicMantraCategory, getAllVedicMantraCategory, updateVedicMantraCategory } from '../controller/vedic-mantra-category-api.js';
 
 
 //configer express router
@@ -132,6 +134,7 @@ router.put('/update-youtube-video/:id', updateYoutubeVideo);
 //pooja mantra
 router.post('/create-pooja-mantra', createPoojaMantra);
 router.get('/get-pooja-mantra', getAllPoojaMantra);
+router.put('/update-pooja-mantra/:id', updatePoojaMantra);
 
 //samagari category
 router.post('/create-samagri-category', createSamagriCategory);
@@ -258,6 +261,18 @@ router.put('/update-photo-gallery/:id', updatePhotoGallery);
 router.post('/create-tv-series', createTvSeries);
 router.get('/get-all-tv-series', getAllTVSeries);
 router.put('/update-tv-series/:id', updateTVSeries);
+
+
+//mantra bookmark
+router.post('/create-mantra-bookmark', createBookmarkMantra);
+router.get('/get-mantra-bookmark-by-userId', getAllBookmarkByUserId);
+router.delete('/delete-mantra-bookmark/:id', deleteBookmarkMantra);
+
+
+//Vedic Mantra Category
+router.post('/create-mantra-category', createVedicMantraCategory);
+router.get('/get-all-mantra-category', getAllVedicMantraCategory);
+router.put('/update-mantra-category/:id', updateVedicMantraCategory);
 
 
 

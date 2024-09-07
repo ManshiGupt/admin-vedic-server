@@ -13,9 +13,9 @@ const PoojaMantraSchema = new mongoose.Schema(
         shlokNo: {type: String},
         index: {type: Number},
         exercise: {type: String},
-        cardHeight: { type: Number, default: 200 },
-       
-        
+        // cardHeight: { type: Number, default: 200 },
+        // source: {type: String}
+         
     },
 
     {
