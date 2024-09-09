@@ -43,6 +43,7 @@ import { createPhotoGallery, getAllPhotoGallery, updatePhotoGallery } from '../c
 import { createTvSeries, getAllTVSeries, updateTVSeries } from '../controller/tv-series-api.js';
 import { createBookmarkMantra, getAllBookmarkByUserId, deleteBookmarkMantra } from '../controller/bookmark-mantra-api.js';
 import { createVedicMantraCategory, getAllVedicMantraCategory, updateVedicMantraCategory } from '../controller/vedic-mantra-category-api.js';
+import { createMeditation, getAllMeditation, updateMeditation } from '../controller/meditation-api.js';
 
 
 //configer express router
@@ -273,6 +274,12 @@ router.delete('/delete-mantra-bookmark/:id', deleteBookmarkMantra);
 router.post('/create-mantra-category', createVedicMantraCategory);
 router.get('/get-all-mantra-category', getAllVedicMantraCategory);
 router.put('/update-mantra-category/:id', updateVedicMantraCategory);
+
+
+//Meditation
+router.post('/create-meditation', createMeditation);
+router.get('/get-all-meditation', getAllMeditation);
+router.put('/update-meditation/:id', updateMeditation);
 
 
 

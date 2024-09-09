@@ -9,6 +9,7 @@ import AddBlogSchema from "../schema/blog-schema.js";
 import AddShortVideoSchema from "../schema/short-video-schema.js";
 import AddHomePageFeedback from "../schema/home-testimonial.js";
 import AddFeedbackReview from "../schema/feedback-review-schema.js";
+import AddMeditationSchema from "../schema/meditation-schema.js";
 
 export const getHomePageDataApi = async (req, res) => {
 
@@ -18,7 +19,7 @@ export const getHomePageDataApi = async (req, res) => {
 
         const options = { limit: parseInt(limit), skip: (currentPage - 1) * limit };
 
-        const [banners, poojaCategories, poojas, bhajanVideos, satsangVideos, pandits, quotes, products, blogs, shortVideos, homePageFeedback] = await Promise.all([
+        const [banners, poojaCategories, poojas, bhajanVideos, satsangVideos, pandits, quotes, products, blogs, shortVideos, homePageFeedback, meditation] = await Promise.all([
 
             AddHomePageBannerSchema.find({}, null, options),
             AddPoojaCategory.find({}, null, options),
@@ -37,7 +38,8 @@ export const getHomePageDataApi = async (req, res) => {
 
             AddBlogSchema.find({}, null, options),
             AddShortVideoSchema.find({}, null, options).sort({ index: -1 }),
-            AddHomePageFeedback.find({}, null, options)
+            AddHomePageFeedback.find({}, null, options),
+            AddMeditationSchema.find({}, null, options).sort({ index: 1 })
 
         ]);
 
@@ -65,6 +67,7 @@ export const getHomePageDataApi = async (req, res) => {
             blogs,
             shortVideos,
             homePageFeedback,
+            meditation,
             appVersion: '1.0.1'
 
         });
