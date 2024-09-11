@@ -185,7 +185,7 @@ export const resendOTP = async (req, res) => {
         });
 
         // Handle the response
-        console.log('Resend OTP response:', response.data);
+        // console.log('Resend OTP response:', response.data);
         res.status(200).json({ message: 'OTP resent successfully', data: response.data });
 
     } catch (error) {
