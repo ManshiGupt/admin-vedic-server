@@ -41,7 +41,7 @@ export const getAllVedicMantraCategory = async (req, res) => {
         const options = {
 
             limit: parseInt(limit, 10) || 10,
-            sort: { updatedAt: -1 },
+            sort: { index: 1 },
 
         };
 
