@@ -2,7 +2,7 @@ import express from 'express'
 
 import { validateTokenForApi, validateTokenForRoute } from '../middleware/token-verification.js';
 
-import { createUser, getUserByContactNo, getAllUsers, updateUser, deleteUser, profileVerificationRequest } from '../controller/user-profile-api.js';
+import { createUser, getUserByContactNo, getAllUsers, updateUser, deleteUser, profileVerificationRequest, getAllProfileVerificationRequest } from '../controller/user-profile-api.js';
 import { createFaqHelp, getAllFaq, deleteFaq, updateFaq, downloadFaqExcelFile } from '../controller/faq-help-api.js';
 import { userRegistration, userLogin } from '../controller/user-registration-api.js';
 import { sendOTP, verifyOTP, resendOTP } from '../controller/send-otp-api.js';
@@ -13,8 +13,8 @@ import { addDeliveryAddress, getDeliveryAddress, updateDeliveryAdd, deleteDelive
 import { createRazorPayOrder, razorPayOrderValidation } from '../controller/razorpay-api.js';
 import { createProductOrder } from '../controller/product-order-api.js';
 import { generateAnswerGoogleAI } from '../controller/open-ai-api.js';
-import { createYouTubeVideo, getAllYoutubeVideo, updateYoutubeVideo } from '../controller/youtube-video-api.js';
-import { createPoojaMantra, getAllPoojaMantra, updatePoojaMantra } from '../controller/pooja-mantra-api.js';
+import { createYouTubeVideo, getAllYoutubeVideo, updateYoutubeVideo, deleteYoutubeVideo } from '../controller/youtube-video-api.js';
+import { createPoojaMantra, getAllPoojaMantra, updatePoojaMantra, deletePoojaMantra } from '../controller/pooja-mantra-api.js';
 import { createSamagriCategory, getAllSamagriCategory } from '../controller/samagri-category-api.js';
 import { createPoojaCategory, getAllPoojaCategory } from '../controller/pooja-category-api.js';
 import { createHomePageBanner, getAllHomePageBanner } from '../controller/home-page-banner-api.js';
@@ -28,21 +28,21 @@ import {createVedicPandit, getAllVedicPandit, getPanditById, updateVedicPandit, 
 import { createFeedbackReviews, getAllFeedbackReviews } from '../controller/feedback-reviews-api.js';
 import { createPooja, getAllPoojas, getPoojaById, updatePooja } from '../controller/pooja-api.js';
 import { createPoojaBooking, getAllPoojaBooking, updatePoojaBooking} from '../controller/pooja-booking-api.js';
-import { createSupportApi } from '../controller/support-api.js';
+import { createSupportApi, getAllSuportApi } from '../controller/support-api.js';
 import { getHomePageDataApi } from '../controller/home-page-api.js';
 import { createBookingSlot, getAllBookingSlots, updateBookingSlots } from '../controller/add-booking-slot-api.js';
 import { createTransaction } from '../controller/transaction-api.js';
 import { createPoojaSamagri, getAllPoojaSamagri, updatePoojaSamagri } from '../controller/pooja-samagri-api.js';
 import { createDailyQuote, getQuoteOfTheDay } from '../controller/add-daily-quote-api.js';
-import { createPost, getAllPost, updatePost, deletePost, getPostByUserId, reportPost } from '../controller/post-api.js';
+import { createPost, getAllPost, updatePost, deletePost, getPostByUserId, reportPost,getAllPost2 } from '../controller/post-api.js';
 import { createNotification, getAllNotification, updateNotification, getTotalNotificationNos} from '../controller/notification-api.js';
 import { createUserLog } from '../controller/user-log-api.js';
 import { createDeleteAccountRequest, getDeletedAccountInfo, deleteDeletedAccountRequest } from '../controller/account-delete-api.js';
 import { getAllReelsAds, updateReelsAds, createReelsAds } from '../controller/reels-ads-api.js';
 import { createPhotoGallery, getAllPhotoGallery, updatePhotoGallery } from '../controller/photo-gallery-api.js';
-import { createTvSeries, getAllTVSeries, updateTVSeries } from '../controller/tv-series-api.js';
+import { createTvSeries, getAllTVSeries, updateTVSeries, deleteTVSeries } from '../controller/tv-series-api.js';
 import { createBookmarkMantra, getAllBookmarkByUserId, deleteBookmarkMantra } from '../controller/bookmark-mantra-api.js';
-import { createVedicMantraCategory, getAllVedicMantraCategory, updateVedicMantraCategory } from '../controller/vedic-mantra-category-api.js';
+import { createVedicMantraCategory, getAllVedicMantraCategory, updateVedicMantraCategory, deleteVedicMantraCategory } from '../controller/vedic-mantra-category-api.js';
 import { createMeditation, getAllMeditation, updateMeditation } from '../controller/meditation-api.js';
 
 
@@ -68,10 +68,11 @@ router.get('/all-users', getAllUsers)
 router.put('/update-user/:id', updateUser);
 
 //delete user
-router.delete('/delete-user/:id', deleteUser)
+// router.delete('/delete-user/:id', deleteUser)
 
 //user profile verification request
 router.post('/profile-verification-request', profileVerificationRequest)
+router.get('/get-all-profile-verification-request', getAllProfileVerificationRequest)
 
 
 //faq section
@@ -130,12 +131,15 @@ router.post('/generate-answer', generateAnswerGoogleAI)
 //youtube video
 router.post('/create-youtube-video', createYouTubeVideo);
 router.get('/get-youtube-video', getAllYoutubeVideo);
-router.put('/update-youtube-video/:id', updateYoutubeVideo);
+router.put('/update-youtube-video/:id', updateYoutubeVideo); 
+router.delete('/delete-youtube-video/:id', deleteYoutubeVideo);
+
 
 //pooja mantra
 router.post('/create-pooja-mantra', createPoojaMantra);
 router.get('/get-pooja-mantra', getAllPoojaMantra);
 router.put('/update-pooja-mantra/:id', updatePoojaMantra);
+router.delete('/delete-pooja-mantra/:id', deletePoojaMantra);
 
 //samagari category
 router.post('/create-samagri-category', createSamagriCategory);
@@ -198,6 +202,7 @@ router.put('/update-pooja-booking/:id', updatePoojaBooking);
 
 //support
 router.post('/create-support-query', createSupportApi);
+router.get('/get-support-query', getAllSuportApi);
 
 //homePageApi
 router.get('/get-home-page-data', getHomePageDataApi);
@@ -224,6 +229,7 @@ router.get('/get-quote-of-the-day', getQuoteOfTheDay);
 //post
 router.post('/add-post', createPost)
 router.get('/get-all-post', getAllPost)
+router.get('/get-all-post2', getAllPost2)
 router.get('/get-post-by-user/:userId', getPostByUserId)
 router.put('/update-post/:id', updatePost)
 router.delete('/delete-post/:id', deletePost);
@@ -262,6 +268,7 @@ router.put('/update-photo-gallery/:id', updatePhotoGallery);
 router.post('/create-tv-series', createTvSeries);
 router.get('/get-all-tv-series', getAllTVSeries);
 router.put('/update-tv-series/:id', updateTVSeries);
+router.delete('/delete-tv-series/:id', deleteTVSeries);
 
 
 //mantra bookmark
@@ -274,6 +281,7 @@ router.delete('/delete-mantra-bookmark/:id', deleteBookmarkMantra);
 router.post('/create-mantra-category', createVedicMantraCategory);
 router.get('/get-all-mantra-category', getAllVedicMantraCategory);
 router.put('/update-mantra-category/:id', updateVedicMantraCategory);
+router.delete('/delete-mantra-category/:id', deleteVedicMantraCategory);
 
 
 //Meditation

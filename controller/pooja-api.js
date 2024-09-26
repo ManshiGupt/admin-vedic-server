@@ -169,7 +169,6 @@ export const getPoojaById = async (req, res) => {
 };
 
 
-
 export const updatePooja = async (req, res) => {
 
     try {

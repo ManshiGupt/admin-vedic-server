@@ -89,3 +89,26 @@ export const updateVedicMantraCategory = async (req, res) => {
 
     }
 };
+
+
+export const deleteVedicMantraCategory = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        // Find the delivery address by id and delete it
+        const deletedData = await AddVedicMantraCategorySchema.findByIdAndDelete(id);
+
+        // Check if the delivery address exists
+        if (!deletedData) {
+            return res.status(404).json({ message: 'data not found' });
+        }
+
+        res.status(200).json({ message: 'Success' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};

@@ -49,7 +49,9 @@ export const getAllYoutubeVideo = async (req, res) => {
         }
 
         if (fileType) {
-            query['fileType'] = { $regex: fileType, $options: 'i' };
+
+            const fileTypes = Array.isArray(fileType) ? fileType : [fileType];
+            query['fileType'] = { $in: fileTypes.map(file => new RegExp(file, 'i')) };
         }
 
         // Counting documents
@@ -60,7 +62,7 @@ export const getAllYoutubeVideo = async (req, res) => {
         const options = {
 
             limit: parseInt(limit, 10) || 10,
-            // sort: { createdAt: -1 },
+            sort: { createdAt: -1 },
         };
 
 
@@ -112,3 +114,27 @@ export const updateYoutubeVideo = async (req, res) => {
         
     }
 }
+
+
+export const deleteYoutubeVideo = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        // Find the delivery address by id and delete it
+        const deletedData = await AddYouTubeVideoSchema.findByIdAndDelete(id);
+
+        // Check if the delivery address exists
+        if (!deletedData) {
+            return res.status(404).json({ message: 'data not found' });
+        }
+
+        res.status(200).json({ message: 'Success' });
+
+    } catch (error) {
+        
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};

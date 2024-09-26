@@ -215,4 +215,45 @@ export const reportPost = async (req, res) => {
 };
 
 
+export const getAllPost2 = async (req, res) => {
+
+    const { searchText, currentPage, limit, status } = req.query;
+
+    try {
+        
+        const query = {}; // Include status in the query
+
+        if (searchText) {
+            query.$or = [
+                { 'postText': { $regex: searchText, $options: 'i' } },
+                { 'userName': { $regex: searchText, $options: 'i' } }
+            ];
+        }
+
+        // Counting documents
+        const totalDocumentCount = await AddPostSchema.countDocuments(query);
+        const totalPages = Math.ceil(totalDocumentCount / (parseInt(limit, 10) || 10));
+
+        const options = {
+            limit: parseInt(limit, 10) || 10,
+            sort: { updatedAt: -1 },
+        };
+
+        // Check if the requested page is within the valid range
+        if (currentPage > totalPages) {
+            return res.status(200).json({ data: [], totalPages });
+        }
+
+        options.page = currentPage;
+
+        const result = await AddPostSchema.paginate(query, options);
+
+        res.status(200).json({ data: result.docs, totalPages });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 

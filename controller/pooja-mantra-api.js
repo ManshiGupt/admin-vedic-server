@@ -136,3 +136,27 @@ export const updatePoojaMantra = async (req, res) => {
     }
 };
 
+
+
+export const deletePoojaMantra = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        // Find the delivery address by id and delete it
+        const deletedData = await AddPoojaMantraSchema.findByIdAndDelete(id);
+
+        // Check if the delivery address exists
+        if (!deletedData) {
+            return res.status(404).json({ message: 'data not found' });
+        }
+
+        res.status(200).json({ message: 'Success' });
+
+    } catch (error) {
+        
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};

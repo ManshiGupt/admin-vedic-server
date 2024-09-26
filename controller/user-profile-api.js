@@ -83,20 +83,56 @@ export const getUserByContactNo = async (req, res) => {
 
 //get all the users
 //test api url :http://localhost:8000/all-users
+
 export const getAllUsers = async (req, res) => {
+    const { searchText, currentPage = 1, limit = 10 } = req.query;
+
     try {
-        // Fetch all users from the database
-        const allUsers = await AddUserProfileSchema.find();
+        const query = {};
 
-        // Return the list of all users
-        res.status(200).json(allUsers);
+        // Add search filters if available
+        if (searchText) {
+            query.$or = [
+                { name: { $regex: searchText, $options: 'i' } },
+                { contactNo: { $regex: searchText, $options: 'i' } },
+                { email: { $regex: searchText, $options: 'i' } },
+                { aadharNo: { $regex: searchText, $options: 'i' } }
+            ];
 
+            // Handle ObjectId search
+            if (/^[0-9a-fA-F]{24}$/.test(searchText)) {
+                query.$or.push({ _id: searchText });
+            }
+        }
+
+        // Validate and sanitize pagination inputs
+        const page = Math.max(parseInt(currentPage, 10), 1); // Ensure page is at least 1
+        const pageSize = Math.max(parseInt(limit, 10), 1);   // Ensure limit is at least 1
+
+        // Count total documents
+        const totalDocumentCount = await AddUserProfileSchema.countDocuments(query);
+        const totalPages = Math.ceil(totalDocumentCount / pageSize);
+
+        // Check if the requested page is within the valid range
+        if (page > totalPages && totalPages !== 0) {
+            return res.status(200).json({ data: [], totalPages });
+        }
+
+        // Paginate results
+        const options = {
+            page,
+            limit: pageSize,
+            sort: { updatedAt: -1 },
+        };
+
+        const result = await AddUserProfileSchema.paginate(query, options);
+
+        res.status(200).json({ data: result.docs, totalPages });
     } catch (error) {
-        // Respond with internal server error if something goes wrong
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: error.message });
     }
 };
+
 
 //update user data
 //test api url :http://localhost:8000/update-user/66333aeea34ac547f64013fc (pass body data in json format that field you want to update)
@@ -128,6 +164,7 @@ export const updateUser = async (req, res) => {
 
 };
 
+
 //delete user data
 //test api url :http://localhost:8000/delete-user/66333aeea34ac547f64013fc
 export const deleteUser = async (req, res) => {
@@ -155,7 +192,6 @@ export const deleteUser = async (req, res) => {
 };
 
 
-
 export const profileVerificationRequest = async (req, res) => {
 
     const data = req.body;
@@ -178,6 +214,51 @@ export const profileVerificationRequest = async (req, res) => {
         // Handle other errors
         console.error(error);
         res.status(500).json({ message: 'Internal server error', error });
+    }
+};
+
+export const getAllProfileVerificationRequest = async (req, res) => {
+
+    const { searchText, currentPage = 1, limit = 10 } = req.query;
+
+    try {
+        const query = {};
+
+        // Add search filters if available
+        if (searchText) {
+            
+            // Handle ObjectId search
+            if (/^[0-9a-fA-F]{24}$/.test(searchText)) {
+                query.$or.push({ _id: searchText });
+            }
+        }
+
+        // Validate and sanitize pagination inputs
+        const page = Math.max(parseInt(currentPage, 10), 1); // Ensure page is at least 1
+        const pageSize = Math.max(parseInt(limit, 10), 1);   // Ensure limit is at least 1
+
+        // Count total documents
+        const totalDocumentCount = await AddProfileVerification.countDocuments(query);
+        const totalPages = Math.ceil(totalDocumentCount / pageSize);
+
+        // Check if the requested page is within the valid range
+        if (page > totalPages && totalPages !== 0) {
+            return res.status(200).json({ data: [], totalPages });
+        }
+
+        // Paginate results
+        const options = {
+            page,
+            limit: pageSize,
+            sort: { createdAt: -1 },
+        };
+
+        const result = await AddProfileVerification.paginate(query, options);
+
+        res.status(200).json({ data: result.docs, totalPages });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 };
 

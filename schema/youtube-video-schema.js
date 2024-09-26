@@ -9,7 +9,7 @@ const YouTubeVideoSchema = new mongoose.Schema(
         videoUrl: { type: String},
         category: { type: [String]},
         thumbnail: {type: String},
-        fileType: {type: String},
+        fileType: {type: [String]},
         episodeNo: {type: String},
         index: {type: Number},
         
