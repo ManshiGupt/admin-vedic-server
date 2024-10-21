@@ -87,7 +87,7 @@ router.get('/download-faq-help-excle-file', downloadFaqExcelFile)
 //user registration
 router.post('/registration', userRegistration)
 router.post('/login', userLogin)
-
+ 
 router.post('/send-otp', sendOTP)
 router.post('/verify-otp', verifyOTP)
 router.post('/resend-otp', resendOTP)

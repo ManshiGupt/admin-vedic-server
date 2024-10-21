@@ -41,7 +41,7 @@ const PoojaSchema = new mongoose.Schema(
         title: { type: String, required: true },
 
         subtitle: { type: String, required: true },
-        date: {type: String},
+        date: {type: String},   
 
         // oldPrice: { type: String, required: true },
         // newPrice: { type: String, required: true },

@@ -1,12 +1,11 @@
 import express from "express";
-import dotenv from 'dotenv'
-import cors from 'cors'
+import dotenv from "dotenv";
+import cors from "cors";
 import Connection from "./database/mongo-db.js";
 import Routes from "./routes/route.js";
 
-
 //initiating express app
-const app = express()
+const app = express();
 
 //parse JSON bodies
 app.use(express.json());
@@ -15,26 +14,33 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //configer dotenv file
-dotenv.config()
+dotenv.config();
 
 //initiating cors for cross domain communication (backent to front end)
-app.use(cors())
+app.use(cors());
 
 //app routing
-app.use('/', Routes)
+app.use("/", Routes);
 
 //configer server port
-const PORT = process.env.PORT || 8000;
-
+// const PORT = process.env.PORT || 8000;
 
 // Connect to MongoDB
-const userName = process.env.MONGO_USER
-const pass = process.env.MONGO_PASS
+const userName = process.env.MONGO_USER;
+const pass = process.env.MONGO_PASS;
 
-//passing the props to 
-Connection(userName, pass)
+//passing the props to
+// Connection(userName, pass)
 
+// //logging the server running status
 
-//logging the server running status
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
+// app.listen(8000, () =>
 
+// console.log(`Server is running on port `))
+
+try {
+  await Connection(userName, pass);
+  app.listen(8000, () => console.log(`Server is running on port `));
+} catch (error) {
+  console.log(`Snot running `);
+}
