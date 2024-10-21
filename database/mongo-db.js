@@ -12,7 +12,7 @@ const Connection = async (userName , pass)=>{
 
     } catch (error) {
 
-        console.log('Error while connecting database',error)
+        console.log('Errorr while connecting database',error)
         
     }
 }
